@@ -4,7 +4,6 @@
 # Log file
 *.log
 
-*.iml
-/.idea
-/target
-/out/
+.*
+build
+*.log
