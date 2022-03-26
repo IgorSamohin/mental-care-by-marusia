@@ -22,10 +22,10 @@ public class MarusiaService {
 
     public MarusiaResponse handleRequest(MarusiaRequest request) {
         State nextState = request.state.session == null
-                ? repository.getNextState(-1, request.request.command)
-                : repository.getNextState(request.state.session.prevStateId, request.request.command);
+            ? repository.getNextState(-1, request.request.command)
+            : repository.getNextState(request.state.session.prevStateId, request.request.command);
 
-        //todo парсить error state
+        // todo парсить error state
         boolean endSession = config.endSessionId == nextState.getId();
         return createResponse(nextState, endSession, request.session);
     }
