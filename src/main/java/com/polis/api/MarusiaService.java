@@ -1,6 +1,7 @@
 package com.polis.api;
 
 import com.polis.api.storage.RepositoryImpl;
+import com.polis.api.storage.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.polis.api.model.MarusiaRequest;
 import com.polis.api.model.MarusiaResponse;
@@ -13,13 +14,11 @@ public class MarusiaService {
     private RepositoryImpl repository;
 
     public MarusiaResponse handleRequest(MarusiaRequest request) {
+        State nextState = request.state == null
+                ? repository.getNextState(-1, request.request.command)
+                : repository.getNextState(request.state.session.prevStateId, request.request.command);
 
-        switch (getCommandFromRequest("")){
-            case COMMAND -> {}
-            case START_SKILL -> {}
-        }
-
-        return null;
+        return MarusiaResponse.build(nextState);
     }
 
     //достаем из строки команду, которую необходимо выполнить

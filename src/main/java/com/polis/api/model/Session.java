@@ -16,22 +16,22 @@ import lombok.ToString;
 @ToString
 public class Session {
     @JsonProperty("session_id")
-    private String sessionId;
+    public String sessionId;
 
     @JsonProperty("user_id")
-    private String userId;
+    public String userId;
 
     @JsonProperty("skill_id")
-    private String skillId;
+    public String skillId;
 
     @JsonProperty("new")
-    private boolean newSession;
+    public boolean newSession;
 
     @JsonProperty("message_id")
-    private int messageId;
+    public int messageId;
 
-    private User user;
-    private Application application;
+    public User user;
+    public Application application;
 
     public Session(String sessionId, String userId, int messageId) {
         this.sessionId = sessionId;

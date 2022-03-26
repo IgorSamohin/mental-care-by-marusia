@@ -7,17 +7,16 @@ import lombok.ToString;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 @AllArgsConstructor
-@Getter
 @ToString
 public class Request {
-    private String command;
+    public String command;
 
     @JsonProperty("original_utterance")
-    private String originalUtterance;
+    public String originalUtterance;
 
-    private String type;
+    public String type;
 
-    private JSONObject payload;
+    public JSONObject payload;
 
-    private Nlu nlu;
+    public Nlu nlu;
 }

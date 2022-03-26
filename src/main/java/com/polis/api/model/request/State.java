@@ -10,4 +10,5 @@ import lombok.ToString;
 @Setter
 @ToString
 public class State {
+    public UserSession session;
 }

@@ -12,6 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class Nlu {
-    private List<String> tokens = new ArrayList<>();
-    private List<String> entities = new ArrayList<>();
+    public List<String> tokens = new ArrayList<>();
+    public List<String> entities = new ArrayList<>();
 }

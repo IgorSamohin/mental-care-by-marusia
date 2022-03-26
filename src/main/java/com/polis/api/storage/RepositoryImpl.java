@@ -2,12 +2,14 @@ package com.polis.api.storage;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 @Repository
 public class RepositoryImpl {
-    private SortedMap<Integer, State> states = new ConcurrentSkipListMap<>();
+    private Map<Integer, State> states = Data.states;
     private final State defaultState = new State();
 
     public State getState(String userInput) {
