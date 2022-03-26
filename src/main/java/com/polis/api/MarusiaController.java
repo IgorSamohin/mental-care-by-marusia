@@ -20,7 +20,7 @@ public class MarusiaController {
     @PostMapping("/webhook")
     @ResponseBody
     public MarusiaResponse mainInput(@RequestBody MarusiaRequest request) {
-        Response response = new Response(request.getRequest().getCommand(), false);
+        Response response = new Response(request.getRequest().command, false);
 
         return new MarusiaResponse(response, request.getSession(), request.getVersion());
     }
