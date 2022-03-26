@@ -1,7 +1,9 @@
 package com.polis.api.storage;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 public class Transition {
     private int toId;
