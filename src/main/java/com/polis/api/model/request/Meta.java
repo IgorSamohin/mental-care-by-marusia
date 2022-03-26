@@ -7,21 +7,20 @@ import lombok.ToString;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 @AllArgsConstructor
-@Getter
 @ToString
 public class Meta {
     @JsonProperty("client_id")
-    private String clientId;
+    public String clientId;
 
     @JsonProperty("locale")
-    private String locale;
+    public String locale;
 
     @JsonProperty("timezone")
-    private String timeZone;
+    public String timeZone;
 
     @JsonProperty("interfaces")
-    private JSONObject interfaces;
+    public JSONObject interfaces;
 
     @JsonProperty("_city_ru")
-    private String city;
+    public String city;
 }

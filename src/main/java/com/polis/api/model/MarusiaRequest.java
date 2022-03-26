@@ -11,9 +11,9 @@ import lombok.ToString;
 @Getter
 @ToString
 public class MarusiaRequest {
-    private Meta meta;
-    private Request request;
-    private Session session;
-    private State state;
-    private String version;
+    public Meta meta;
+    public Request request;
+    public Session session;
+    public State state;
+    public String version;
 }

@@ -1,8 +1,12 @@
 package com.polis.api.storage;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class State {
     public static final int defaultStateId = -1;
 
