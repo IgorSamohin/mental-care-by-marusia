@@ -1,5 +1,6 @@
 package com.polis.api;
 
+import com.polis.api.storage.RepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.polis.api.model.MarusiaRequest;
 import com.polis.api.model.MarusiaResponse;
