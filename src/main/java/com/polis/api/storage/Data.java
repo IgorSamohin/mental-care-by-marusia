@@ -5,12 +5,12 @@ import java.util.Map;
 public class Data {
     public static Map<Integer, State> states = Map.of(
         -3, new State(
-            -1,
+            -3,
             "Возвращайтесь в следующий раз",
             "Возвращайтесь в следующий раз",
             new Transition[]{}),
         -2, new State(
-            -1,
+            -2,
             "Я вас не поняла. Попробуйте ещё раз",
             "Я вас не поняла. Попробуйте ещё раз",
             new Transition[]{}),
