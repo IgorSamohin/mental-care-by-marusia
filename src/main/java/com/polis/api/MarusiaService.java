@@ -1,12 +1,12 @@
 package com.polis.api;
 
-import com.polis.api.model.Request;
-import com.polis.api.model.Response;
+import com.polis.api.model.request.MarusiaRequest;
+import com.polis.api.model.MarusiaResponse;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MarusiaService {
-    public Response handleRequest(Request request) {
+    public MarusiaResponse handleRequest(MarusiaRequest request) {
         switch (getCommandFromRequest("")){
             case COMMAND -> {}
             case START_SKILL -> {}
@@ -22,7 +22,7 @@ public class MarusiaService {
 
     //объединяем аргументы в ответ.
     // todo Object... args - нужно поменять
-    private Response createResponse(Object... args) {
+    private MarusiaResponse createResponse(Object... args) {
         return null;
     }
 }
