@@ -15,13 +15,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Session {
-
-    public Session(String sessionId, String userId, int messageId) {
-        this.sessionId = sessionId;
-        this.userId = userId;
-        this.messageId = messageId;
-    }
-
     @JsonProperty("session_id")
     private String sessionId;
 
@@ -39,4 +32,10 @@ public class Session {
 
     private User user;
     private Application application;
+
+    public Session(String sessionId, String userId, int messageId) {
+        this.sessionId = sessionId;
+        this.userId = userId;
+        this.messageId = messageId;
+    }
 }

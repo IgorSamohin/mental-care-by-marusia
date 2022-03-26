@@ -13,6 +13,17 @@ import java.util.List;
 @Getter
 @Setter
 public class Response {
+    private List<String> text = new ArrayList<>();
+    private String tts;
+    private List<Button> buttons = new ArrayList<>();
+
+    @JsonProperty("end_session")
+    private boolean endSession;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Card card;
+
+    private List<Command> commands = new ArrayList<>();
 
     public Response(String text, boolean endSession) {
         this.text.add(text);
@@ -30,16 +41,4 @@ public class Response {
         this.text = text;
         this.endSession = endSession;
     }
-
-    private List<String> text = new ArrayList<>();
-    private String tts;
-    private List<Button> buttons = new ArrayList<>();
-
-    @JsonProperty("end_session")
-    private boolean endSession;
-
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Card card;
-
-    private List<Command> commands = new ArrayList<>();
 }
