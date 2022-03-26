@@ -1,8 +1,8 @@
 package com.polis.api;
 
 import com.polis.api.model.MarusiaResponse;
-import com.polis.api.model.Response;
-import com.polis.api.model.request.MarusiaRequest;
+import com.polis.api.model.response.Response;
+import com.polis.api.model.MarusiaRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class MarusiaController {
     @PostMapping("/webhook")
     @ResponseBody
     public MarusiaResponse mainInput(@RequestBody MarusiaRequest request) {
-        Response response = new Response("PRIVET", false);
+        Response response = new Response(request.getRequest().getCommand(), false);
 
         return new MarusiaResponse(response, request.getSession(), request.getVersion());
     }

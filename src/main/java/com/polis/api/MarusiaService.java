@@ -1,6 +1,6 @@
 package com.polis.api;
 
-import com.polis.api.model.request.MarusiaRequest;
+import com.polis.api.model.MarusiaRequest;
 import com.polis.api.model.MarusiaResponse;
 import org.springframework.stereotype.Service;
 

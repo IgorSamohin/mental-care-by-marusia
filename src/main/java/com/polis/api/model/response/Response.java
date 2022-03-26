@@ -1,4 +1,4 @@
-package com.polis.api.model;
+package com.polis.api.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

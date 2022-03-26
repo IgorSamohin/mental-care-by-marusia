@@ -1,6 +1,6 @@
 package com.polis.api.model;
 
-import com.polis.api.model.request.Session;
+import com.polis.api.model.response.Response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

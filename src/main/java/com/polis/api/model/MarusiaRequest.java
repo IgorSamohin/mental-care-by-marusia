@@ -1,15 +1,16 @@
-package com.polis.api.model.request;
+package com.polis.api.model;
 
+import com.polis.api.model.request.Meta;
+import com.polis.api.model.request.Request;
+import com.polis.api.model.request.State;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
 @ToString
 public class MarusiaRequest {
     private Meta meta;

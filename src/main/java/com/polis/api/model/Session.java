@@ -1,6 +1,8 @@
-package com.polis.api.model.request;
+package com.polis.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.polis.api.model.request.Application;
+import com.polis.api.model.request.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

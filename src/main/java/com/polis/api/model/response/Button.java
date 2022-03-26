@@ -1,4 +1,4 @@
-package com.polis.api.model;
+package com.polis.api.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
