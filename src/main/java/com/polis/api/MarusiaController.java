@@ -1,7 +1,6 @@
 package com.polis.api;
 
 import com.polis.api.model.MarusiaResponse;
-import com.polis.api.model.response.Response;
 import com.polis.api.model.MarusiaRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +19,6 @@ public class MarusiaController {
     @PostMapping("/webhook")
     @ResponseBody
     public MarusiaResponse mainInput(@RequestBody MarusiaRequest request) {
-        Response response = new Response(request.getRequest().command, false);
-
-        return new MarusiaResponse(response, request.getSession(), request.getVersion());
+        return service.handleRequest(request);
     }
 }

@@ -28,6 +28,11 @@ public class RepositoryImpl {
     public State getNextState(int currentStateId, String userInput) {
         State currentState = states.get(currentStateId);
 
-        return getState(currentState.getNextStateId(userInput));
+        int nextStateId = currentState.getNextStateId(userInput);
+        if (nextStateId == -1) {
+            nextStateId = states.get(-1).getNextStateId(userInput);
+        }
+
+        return getState(nextStateId);
     }
 }
