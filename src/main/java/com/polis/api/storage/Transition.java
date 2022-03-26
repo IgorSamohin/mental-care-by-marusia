@@ -11,7 +11,7 @@ public class Transition {
 
     public boolean mustGo(String userInput) {
         for (String synonym : synonyms) {
-            if (synonym.equals(userInput)) {
+            if (synonym.equalsIgnoreCase(userInput)) {
                 return true;
             }
         }
