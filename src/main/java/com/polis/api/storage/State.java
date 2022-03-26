@@ -12,6 +12,7 @@ public class State {
 
     private int id;
     private String text;
+    private String tts;
     private Transition[] possibleTransitions;
 
     public int getNextStateId(String userInput) {
