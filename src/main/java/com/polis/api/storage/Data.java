@@ -8,7 +8,6 @@ public class Data {
 
     public static Map<Integer, State> states = Map.of(
             -1, new State(),//default state
-            //текущее 1, новое со стейтом -1
             1, new State(1, "Вот вам совет от психолога", "Вот вам совет от психолога", new Transition[]{
                     new Transition(-1, new String[]{GIVE_SMTH_ELSE, SMTH_ELSE})
             }),
