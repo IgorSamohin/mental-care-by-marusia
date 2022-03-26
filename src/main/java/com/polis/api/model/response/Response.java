@@ -41,4 +41,10 @@ public class Response {
         this.text = text;
         this.endSession = endSession;
     }
+
+    public Response(List<String> text, String tts, boolean endSession) {
+        this.text = text;
+        this.tts = tts;
+        this.endSession = endSession;
+    }
 }

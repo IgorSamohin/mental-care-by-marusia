@@ -6,6 +6,9 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Объект, содержащий слова и именованные сущности, которые Маруся извлекает из запроса пользователя
+ */
 @AllArgsConstructor
 @Getter
 public class Nlu {
