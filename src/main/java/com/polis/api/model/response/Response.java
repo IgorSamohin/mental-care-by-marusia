@@ -2,6 +2,9 @@ package com.polis.api.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.polis.api.model.response.components.base.Button;
+import com.polis.api.model.response.components.Card;
+import com.polis.api.model.response.components.Command;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
