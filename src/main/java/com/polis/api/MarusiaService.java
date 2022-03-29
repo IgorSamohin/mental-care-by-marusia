@@ -24,14 +24,13 @@ public class MarusiaService {
     private Config config;
 
     public MarusiaResponse handleRequest(MarusiaRequest request) {
-        logger.info("is session null? : " + (request.state.session == null));
-        logger.info("curr id? : " + request.state.session.prevStateId);
+        logger.info("curr id : " + request.state.session.prevStateId);
 
         State nextState = request.state.session.prevStateId == null
             ? repository.getNextState(-1, request.request.command)
             : repository.getNextState(request.state.session.prevStateId, request.request.command);
 
-        logger.info("next statte id" + nextState.getId());
+        logger.info("next state id" + nextState.getId());
 
         // todo парсить error state
         boolean endSession = config.endSessionId == nextState.getId();
