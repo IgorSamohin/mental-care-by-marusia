@@ -26,9 +26,7 @@ public class MarusiaService {
     public MarusiaResponse handleRequest(MarusiaRequest request) {
         logger.info("curr id : " + request.state.session.prevStateId);
 
-        State nextState = request.state.session.prevStateId == null
-            ? repository.getNextState(-1, request.request.command)
-            : repository.getNextState(request.state.session.prevStateId, request.request.command);
+        State nextState = repository.getNextState(request.state.session.prevStateId, request.request.command);
 
         logger.info("next state id" + nextState.getId());
 

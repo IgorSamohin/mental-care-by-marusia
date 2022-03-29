@@ -10,5 +10,5 @@ import lombok.ToString;
 @ToString
 public class UserSession {
     @JsonProperty("prev_state_id")
-    public Integer prevStateId;
+    public int prevStateId = -1;
 }
