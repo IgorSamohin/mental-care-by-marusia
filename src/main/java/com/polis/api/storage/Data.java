@@ -31,6 +31,8 @@ public class Data {
 
         states.put(
                 0, new State(0, "Есть несколько вариантов отдыха. Могу скинуть вам информацию о йоге или можем погадать на числах. Что выберите?", "Есть несколько вариантов отдыха. Могу скинуть вам видео или можем погадать на числах. Что выберите?", new Transition[]{
+                        new Transition(-3, EXIT),
+                        new Transition(-1, HOME),
                         new Transition(7, new String[]{"Дай йогу", "йога", "Йогу", "Выбираю йогу"}),
                         new Transition(8, new String[]{"Гадание", "Гадание на числах", "Числа"}),
                         new Transition(9, new String[]{"задание на числа"})
@@ -39,7 +41,8 @@ public class Data {
 
         states.put(
                 1, new State(1, "Вот вам совет от психолога", "Вот вам совет от психолога", new Transition[]{
-                        new Transition(-1, HOME)
+                        new Transition(-3, EXIT),
+                        new Transition(-1, HOME),
                 })
         );
 
