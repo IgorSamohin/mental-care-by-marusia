@@ -2,8 +2,7 @@ package com.polis.api.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.polis.api.model.response.components.base.Button;
-import com.polis.api.model.response.components.Card;
+import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.Command;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,13 +19,13 @@ import java.util.List;
 public class Response {
     private List<String> text = new ArrayList<>();
     private String tts;
-    private List<Button> buttons = new ArrayList<>();
+    private List<ResponseButton> buttons = new ArrayList<>();
 
     @JsonProperty("end_session")
     private boolean endSession;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Card card;
+    private ResponseCard card;
 
     private List<Command> commands = new ArrayList<>();
 

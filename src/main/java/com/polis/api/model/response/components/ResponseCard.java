@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Card {
+public class ResponseCard {
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
@@ -28,12 +28,12 @@ public class Card {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private ImageId[] items = null;
 
-    public Card(Integer imageId) {
+    public ResponseCard(Integer imageId) {
         this.type = CardType.BIG_IMAGE;
         this.imageId = imageId;
     }
 
-    public Card(int[] items) {
+    public ResponseCard(int[] items) {
         this.type = CardType.ITEMS_LIST;
         this.items = new ImageId[items.length];
         for (int i = 0; i < items.length; i++) {
