@@ -1,6 +1,8 @@
 package com.polis.api.storage;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.polis.api.model.response.components.Command;
+import com.polis.api.model.response.components.audio.AudioPlayer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ public class State {
     private String tts;
     private Transition[] possibleTransitions;
     private Command[] commands = null;
+    private AudioPlayer audioPlayer = null;
 
     public State(int id, String text, String tts, Transition[] possibleTransitions) {
         this.id = id;

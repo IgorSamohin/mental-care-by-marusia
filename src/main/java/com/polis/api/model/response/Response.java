@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.Command;
+import com.polis.api.model.response.components.audio.AudioPlayer;
 import com.polis.api.storage.State;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,8 +31,11 @@ public class Response {
 
     private List<Command> commands = new ArrayList<>();
 
+    @JsonProperty("audio_player")
+    private AudioPlayer audioPlayer = null;
+
     public Response(State state, boolean endSession) {
-        this(state.getText(), state.getTts(), state.getCommands(), endSession);
+        this(state.getText(), state.getTts(), state.getCommands(), state.getAudioPlayer(), endSession);
     }
 
     public Response(String text, boolean endSession) {
@@ -46,11 +50,12 @@ public class Response {
         this.endSession = endSession;
     }
 
-    public Response(String text, String tts, Command[] commands, boolean endSession) {
+    public Response(String text, String tts, Command[] commands, AudioPlayer audioPlayer, boolean endSession) {
         this.text.add(text);
         this.tts = tts;
         this.commands = List.of(commands);
         this.endSession = endSession;
+        this.audioPlayer = audioPlayer;
     }
 
     public Response(List<String> text, boolean endSession) {
