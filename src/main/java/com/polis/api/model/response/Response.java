@@ -18,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response {
     private List<String> text = new ArrayList<>();
     private String tts;
@@ -53,7 +54,11 @@ public class Response {
     public Response(String text, String tts, Command[] commands, AudioPlayer audioPlayer, boolean endSession) {
         this.text.add(text);
         this.tts = tts;
-        this.commands = List.of(commands);
+        if (commands == null) {
+            this.commands = new ArrayList<>();
+        } else {
+            this.commands = List.of(commands);
+        }
         this.endSession = endSession;
         this.audioPlayer = audioPlayer;
     }

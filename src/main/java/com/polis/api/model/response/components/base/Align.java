@@ -1,5 +1,7 @@
 package com.polis.api.model.response.components.base;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Позволяет задавать выравнивание основного элемента по горизонтали.
  * <p>
@@ -8,8 +10,11 @@ package com.polis.api.model.response.components.base;
  * Значение по умолчанию: <b>center</b>.
  */
 public enum Align {
+    @JsonProperty("left")
     LEFT("left"),
+    @JsonProperty("center")
     CENTER("center"),
+    @JsonProperty("right")
     RIGHT("right");
 
     Align(String align) {

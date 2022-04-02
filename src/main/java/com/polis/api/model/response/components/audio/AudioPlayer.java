@@ -15,6 +15,10 @@ public class AudioPlayer {
     @JsonProperty("seek_second")
     private int seekSecond;
 
+    public AudioPlayer(String audioVkId) {
+        this(new String[]{audioVkId});
+    }
+
     public AudioPlayer(String[] audioVkIds) {
         this.playlist = new PlayList[audioVkIds.length];
         for (int i = 0; i < audioVkIds.length; i++) {
