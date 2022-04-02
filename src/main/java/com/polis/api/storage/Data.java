@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Data {
 
-    private static final String[] EXIT = new String[]{"пока", "выйди", "хочу выйти"};
+    private static final String[] EXIT = new String[]{"пока", "выйди", "хочу выйти", "стоп", "все", "хватит"};
     private static final String[] HOME = new String[]{"начало", "вернись в начало", "заново", "давай по новой"};
 
     public static final Map<Integer, State> states = new HashMap<>();
@@ -20,11 +20,11 @@ public class Data {
         states.put(
                 -1, new State(-1, MarusiaAnswer.START_STATE_ANSWER.text, MarusiaAnswer.START_STATE_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
-                        new Transition(0, new String[]{"хочу отвлечься", "Давай отдохнём", "Отдых", "Релакс"}),
+                        new Transition(0, new String[]{"хочу отвлечься", "Давай отдохнём", "Отдых", "Релакс", "отвлечение", "отвлеки"}),
                         new Transition(1, new String[]{"дай совет", "совет"}),
-                        new Transition(2, new String[]{"Что ты можешь", "Что ты умеешь", "Твои функции"}),
-                        new Transition(10, new String[]{"отвлечь", "давай отвлечемся", "как ты можешь меня отвлечь?"}),
-                        new Transition(12, new String[]{"успокоить", "успокой меня", "как ты можешь меня успокоить?"}),
+                        new Transition(2, new String[]{"Что ты можешь", "Что ты умеешь", "Твои функции", "помощь", "помоги"}),
+                        new Transition(10, new String[]{"как ты можешь меня отвлечь?"}),
+                        new Transition(12, new String[]{"как ты можешь меня успокоить?"}),
                         new Transition(13, new String[]{"хочу успокоиться", "успокой меня", "успокоение", "успокой"}),
                 })
         );
@@ -34,8 +34,8 @@ public class Data {
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME),
                         new Transition(7, new String[]{"Дай йогу", "йога", "Йогу", "Выбираю йогу"}),
-                        new Transition(8, new String[]{"Гадание", "Гадание на числах", "Числа"}),
-                        new Transition(9, new String[]{"задание на числа"})
+                        new Transition(8, new String[]{"Гадание", "Гадание на числах"}),
+                        new Transition(9, new String[]{"задание на числа", "давай поиграем", "числа", "играть"})
                 })
         );
 
@@ -110,9 +110,9 @@ public class Data {
         states.put(13, new State(13, MarusiaAnswer.SEDATION_STATE_ANSWER.text, MarusiaAnswer.SEDATION_STATE_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME),
-                        new Transition(3, new String[]{"Скинь видос", "Скинь видео", "Видео"}),
-                        new Transition(4, new String[]{"Включи успокаивающие звуки", "успокаивающие звуки", "спокойные звуки"}),
-                        new Transition(5, new String[]{"Включи успокаивающую музыку"}),
+                        new Transition(3, new String[]{"Скинь видос", "Скинь видео", "Видео", "видос"}),
+                        new Transition(4, new String[]{"Включи успокаивающие звуки", "успокаивающие звуки", "спокойные звуки", "звуки"}),
+                        new Transition(5, new String[]{"Включи успокаивающую музыку", "музыка"}),
                         new Transition(6, new String[]{"Давай подышим", "Давай пыхнем", "Дыхательная гимнастика", "Дышать", "Вздох"})
                 })
         );
