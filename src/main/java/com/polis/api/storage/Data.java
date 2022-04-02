@@ -12,13 +12,13 @@ public class Data {
 
     static {
         states.put(
-                -3, new State(-3, "Возвращайтесь в следующий раз", "Возвращайтесь в следующий раз", new Transition[]{})
+                -3, new State(-3, MarusiaAnswer.EXIT_ANSWER.text, MarusiaAnswer.EXIT_ANSWER.tts, new Transition[]{})
         );
         states.put(
-                -2, new State(-2, "Я вас не поняла. Попробуйте ещё раз", "Я вас не поняла. Попробуйте ещё раз", new Transition[]{})
+                -2, new State(-2, MarusiaAnswer.ERROR_ANSWER.text, MarusiaAnswer.ERROR_ANSWER.tts, new Transition[]{})
         );
         states.put(
-                -1, new State(-1, "Чем я могу вам помочь?", "Чем я могу вам помочь?", new Transition[]{
+                -1, new State(-1, MarusiaAnswer.START_STATE_ANSWER.text, MarusiaAnswer.START_STATE_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(0, new String[]{"хочу отвлечься", "Давай отдохнём", "Отдых", "Релакс"}),
                         new Transition(1, new String[]{"дай совет", "совет"}),
@@ -30,7 +30,7 @@ public class Data {
         );
 
         states.put(
-                0, new State(0, "Есть несколько вариантов отдыха. Могу скинуть вам информацию о йоге или можем погадать на числах. Что выберите?", "Есть несколько вариантов отдыха. Могу скинуть вам видео или можем погадать на числах. Что выберите?", new Transition[]{
+                0, new State(0, MarusiaAnswer.DISTRACTION_STATE_ANSWER.text, MarusiaAnswer.DISTRACTION_STATE_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME),
                         new Transition(7, new String[]{"Дай йогу", "йога", "Йогу", "Выбираю йогу"}),
@@ -40,14 +40,14 @@ public class Data {
         );
 
         states.put(
-                1, new State(1, "Вот вам совет от психолога", "Вот вам совет от психолога", new Transition[]{
+                1, new State(1, MarusiaAnswer.ADVICE_FROM_PSYCHOLOGIST_ANSWER.text, MarusiaAnswer.ADVICE_FROM_PSYCHOLOGIST_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME),
                 })
         );
 
         states.put(
-                2, new State(2, "Я могу: помочь отдохнуть, дать совет, скинуть видео, включить успокаивающую музыку, включить дыхательную гимнастику, могу отвлечь, а так же могу успокоить!", "Я могу: помочь отдохнуть, дать совет, скинуть видео, включить успокаивающую музыку, включить дыхательную гимнастику, могу отвлечь, а так же могу успокоить!", new Transition[]{
+                2, new State(2, MarusiaAnswer.HELP_ANSWER.text, MarusiaAnswer.HELP_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME),
                         new Transition(10, new String[]{"как ты можешь отвлечь", "отвлечение"}),
@@ -56,58 +56,58 @@ public class Data {
         );
 
         states.put(
-                3, new State(3, "Посмотрите это видео", "Посмотрите это видео", new Transition[]{
+                3, new State(3, MarusiaAnswer.VIDEO_ANSWER.text, MarusiaAnswer.VIDEO_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME)
                 })
         );
 
         states.put(
-                4, new State(4, "Включаю успокаивающие звуки", "Включаю успокаивающие звуки", new Transition[]{
+                4, new State(4, MarusiaAnswer.SOOTHING_SOUND_ANSWER.text, MarusiaAnswer.SOOTHING_SOUND_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME)
                 })
         );
 
         states.put(
-                5, new State(5, "Включаю музыку", "Включаю музыку", new Transition[]{
+                5, new State(5, MarusiaAnswer.MUSIC_ANSWER.text, MarusiaAnswer.MUSIC_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME)
                 })
         );
 
         states.put(
-                6, new State(6, "Попробуйте выполнить это дыхательное упражнение", "Попробуйте выполнить это дыхательное упражнение", new Transition[]{
+                6, new State(6, MarusiaAnswer.BREATHING_EXERCISE_ANSWER.text, MarusiaAnswer.BREATHING_EXERCISE_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME)
                 })
         );
 
         states.put(
-                7, new State(7, "Смотрите что я вам нашла", "Смотрите что я вам нашла", new Transition[]{
+                7, new State(7, MarusiaAnswer.YOGA_ANSWER.text, MarusiaAnswer.YOGA_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME)
                 })
         );
 
         states.put(
-                9, new State(9, "Давайте погадаем!", "Давайте погадаем!", new Transition[]{
+                9, new State(9, MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER.text, MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME)
                 })
         );
-        states.put(10, new State(10, "Я могу поиграть с вами в загадывание чисел, посчитать числа вместе с вами, скинуть отвлекающее видео", "Я могу поиграть с вами в загадывание чисел, посчитать числа вместе с вами, скинуть отвлекающее видео", new Transition[]{
+        states.put(10, new State(10, MarusiaAnswer.DISTRACTION_HELP_ANSWER.text, MarusiaAnswer.DISTRACTION_HELP_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME)
                 })
         );
-        states.put(12, new State(12, "Я могу скинуть вам успокаивающее видео, включить звуки природы, включить успокаивающую музыку, или скинуть дыхательное упражнение", "Я могу скинуть вам успокаивающее видео, включить звуки природы, включить успокаивающую музыку, или скинуть дыхательное упражнение", new Transition[]{
+        states.put(12, new State(12, MarusiaAnswer.SEDATION_HELP_ANSWER.text, MarusiaAnswer.SEDATION_HELP_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME)
                 })
         );
 
-        states.put(13, new State(13, "Есть несколько вариантов успокоения и расслабления. Я могу скинуть вам успокаивающее видео, включить звуки природы, включить успокаивающую музыку, или скинуть дыхательное упражнение", "Я могу скинуть вам успокаивающее видео, включить звуки природы, включить успокаивающую музыку, или скинуть дыхательное упражнение", new Transition[]{
+        states.put(13, new State(13, MarusiaAnswer.SEDATION_STATE_ANSWER.text, MarusiaAnswer.SEDATION_STATE_ANSWER.tts, new Transition[]{
                         new Transition(-3, EXIT),
                         new Transition(-1, HOME),
                         new Transition(3, new String[]{"Скинь видос", "Скинь видео", "Видео"}),
