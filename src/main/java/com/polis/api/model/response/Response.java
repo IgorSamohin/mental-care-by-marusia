@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.Command;
+import com.polis.api.storage.State;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,10 @@ public class Response {
 
     private List<Command> commands = new ArrayList<>();
 
+    public Response(State state, boolean endSession) {
+        this(state.getText(), state.getTts(), state.getCommands(), endSession);
+    }
+
     public Response(String text, boolean endSession) {
         this.text.add(text);
         this.tts = text;
@@ -38,6 +43,13 @@ public class Response {
     public Response(String text, String tts, boolean endSession) {
         this.text.add(text);
         this.tts = tts;
+        this.endSession = endSession;
+    }
+
+    public Response(String text, String tts, Command[] commands, boolean endSession) {
+        this.text.add(text);
+        this.tts = tts;
+        this.commands = List.of(commands);
         this.endSession = endSession;
     }
 

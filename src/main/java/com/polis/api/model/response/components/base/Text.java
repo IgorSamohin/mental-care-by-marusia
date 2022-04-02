@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Text {
+public class Text extends BaseComponent {
     /**
      * <b>Обязательный параметр.</b>
      * <p>

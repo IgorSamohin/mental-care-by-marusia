@@ -9,7 +9,7 @@ import com.polis.api.model.response.components.base.types.ImageType;
  * <p>
  * Картинка может быть задана как ссылкой на объект профиля, группы или приложения, так и непосредственно внутри объекта в виде массива Image Item.
  */
-public class Image {
+public class Image extends BaseComponent {
     /**
      * Тип источника, из которого нужно загрузить данные в элемент image
      */

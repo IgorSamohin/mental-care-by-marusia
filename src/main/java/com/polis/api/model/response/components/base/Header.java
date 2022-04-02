@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Header {
+public class Header extends BaseComponent {
     @JsonProperty("header_title")
     private String headerTitle;
 

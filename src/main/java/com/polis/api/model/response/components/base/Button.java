@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Button {
+public class Button extends BaseComponent {
     /**
      * <b>Обязательный параметр.</b> Действие, которое выполнится при нажатии на кнопку.
      */

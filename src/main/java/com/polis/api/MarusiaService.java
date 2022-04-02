@@ -32,7 +32,7 @@ public class MarusiaService {
 
     //объединяем аргументы в ответ.
     private MarusiaResponse createResponse(State state, boolean endSession, Session session) {
-        Response response = new Response(state.getText(), state.getTts(), endSession);
+        Response response = new Response(state, endSession);
 
         return new MarusiaResponse(response, session, config.version, new UserSession(state.getId()));
     }

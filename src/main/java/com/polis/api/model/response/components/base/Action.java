@@ -12,7 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Action {
+public class Action extends BaseComponent {
     private ActionType type;
 
     /**

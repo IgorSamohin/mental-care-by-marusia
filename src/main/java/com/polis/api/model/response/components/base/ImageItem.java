@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class ImageItem {
+public class ImageItem extends BaseComponent {
     private int height;
     private int width;
 

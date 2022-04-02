@@ -11,7 +11,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public class Icon {
+public class Icon extends BaseComponent {
     /**
      * <b>Обязательный параметр.</b>
      */

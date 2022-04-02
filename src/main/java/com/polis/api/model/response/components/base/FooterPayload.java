@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class FooterPayload {
+public class FooterPayload extends BaseComponent {
     /**
      * Заголовок. Обязательный при <b>type == accent_button</b>
      */
