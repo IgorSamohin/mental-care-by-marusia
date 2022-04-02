@@ -11,14 +11,15 @@ import lombok.Setter;
  * <p>
  * Наполнение и количество строк и столбцов таблицы вы можете определять самостоятельно
  */
-@Getter
-@Setter
+
 public class Table extends BaseWidgetPayload {
     /**
      * <b>Необязательный</b> параметр.
      * <p>
      * Позволяет задать ширину колонок.
      */
+    @Getter
+    @Setter
     private int[] sizes;
 
     /**

@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.polis.api.model.response.components.base.Action;
 import com.polis.api.model.response.components.base.Footer;
 import com.polis.api.model.response.components.base.Header;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -13,6 +15,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Card extends BaseWidgetPayload {
     @JsonUnwrapped
     private WidgetElement item;
