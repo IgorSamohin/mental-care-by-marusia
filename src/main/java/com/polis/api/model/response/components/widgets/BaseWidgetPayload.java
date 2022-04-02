@@ -6,12 +6,8 @@ import com.polis.api.model.response.components.base.Action;
 import com.polis.api.model.response.components.base.Footer;
 import com.polis.api.model.response.components.base.Header;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 @AllArgsConstructor
-@Getter
-@Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseWidgetPayload {
     protected WidgetElement[] items;
