@@ -1,13 +1,17 @@
 package com.polis.api.storage;
 
-import lombok.AllArgsConstructor;
+import com.polis.api.MarusiaCommand;
 import lombok.Getter;
 
-@AllArgsConstructor
 @Getter
 public class Transition {
-    private int toId;
-    private String[] synonyms;
+    private final int toId;
+    private final String[] synonyms;
+
+    public Transition(int toId, MarusiaCommand marusiaCommand) {
+        this.toId = toId;
+        this.synonyms = marusiaCommand.commands;
+    }
 
     public boolean mustGo(String userInput) {
         for (String synonym : synonyms) {

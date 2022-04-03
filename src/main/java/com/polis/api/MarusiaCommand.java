@@ -1,6 +1,6 @@
 package com.polis.api;
 
-public enum Command {
+public enum MarusiaCommand {
     START_SKILL("Запусти скилл"), //todo
     EXIT("пока", "выйди", "хочу выйти", "стоп", "все", "хватит"),
     HOME("начало", "вернись в начало", "заново", "давай по новой"),
@@ -25,7 +25,7 @@ public enum Command {
 
     public final String[] commands;
 
-    Command(String... commands) {
+    MarusiaCommand(String... commands) {
         this.commands = commands;
     }
 }
