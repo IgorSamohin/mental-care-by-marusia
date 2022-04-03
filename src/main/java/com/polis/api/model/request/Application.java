@@ -9,9 +9,9 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Application {
-    @JsonProperty("user_id")
+    @JsonProperty("application_id")
     private String applicationId;
 
     @JsonProperty("application_type")
-    private String applicationType;
+    private String applicationType; //todo this field must be enum
 }
