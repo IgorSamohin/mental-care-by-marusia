@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class State {
-    public static final int defaultStateId = -1;
-    public static final int errorStateId = -2;
-    public static final int exitStateId = -3;
-    public static final int menuId = 2;
+    public static final int DEFAULT_STATE_ID = -1;
+    public static final int ERROR_STATE_ID = -2;
+    public static final int EXIT_STATE_ID = -3;
+    public static final int MENU_ID = 2;
 
     private int id;
     private String text;
@@ -24,8 +24,8 @@ public class State {
                 return possibleTransition.getToId();
             }
         }
-        if (id == exitStateId) {
-            return defaultStateId;
+        if (id == EXIT_STATE_ID) {
+            return DEFAULT_STATE_ID;
         }
         return id;
     }
