@@ -1,4 +1,4 @@
-package com.polis.api;
+package com.polis.api.storage;
 
 public enum MarusiaCommand {
     START_SKILL("Запусти скилл"), //todo

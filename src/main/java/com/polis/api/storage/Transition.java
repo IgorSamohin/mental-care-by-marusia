@@ -1,6 +1,5 @@
 package com.polis.api.storage;
 
-import com.polis.api.MarusiaCommand;
 import lombok.Getter;
 
 @Getter
