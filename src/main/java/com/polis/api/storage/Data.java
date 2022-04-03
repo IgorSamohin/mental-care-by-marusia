@@ -14,7 +14,7 @@ public class Data {
                 -2, new State(-2, MarusiaAnswer.ERROR_ANSWER, new Transition[]{})
         );
         states.put(
-                -1, new State(-1, MarusiaAnswer.START_STATE_ANSWER, new Transition[]{
+                -1, new State(-1, MarusiaAnswer.START_ANSWER, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(0, MarusiaCommand.DISTRACTION),
                         new Transition(1, MarusiaCommand.ADVICE),
@@ -26,7 +26,7 @@ public class Data {
         );
 
         states.put(
-                0, new State(0, MarusiaAnswer.DISTRACTION_STATE_ANSWER, new Transition[]{
+                0, new State(0, MarusiaAnswer.DISTRACTION_ANSWER, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME),
                         new Transition(7, MarusiaCommand.DISTRACTION_YOGA),
@@ -103,7 +103,7 @@ public class Data {
                 })
         );
 
-        states.put(13, new State(13, MarusiaAnswer.SEDATION_STATE_ANSWER, new Transition[]{
+        states.put(13, new State(13, MarusiaAnswer.SEDATION_ANSWER, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME),
                         new Transition(3, MarusiaCommand.SEDATION_VIDEO),

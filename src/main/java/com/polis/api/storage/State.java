@@ -1,6 +1,5 @@
 package com.polis.api.storage;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
