@@ -19,8 +19,6 @@ public class Data {
                         new Transition(0, MarusiaCommand.DISTRACTION),
                         new Transition(1, MarusiaCommand.ADVICE),
                         new Transition(2, MarusiaCommand.HELP),
-                        new Transition(10, MarusiaCommand.HELP_DISTRACTION),//TODO кажется тут не дб и снизу
-                        new Transition(12, MarusiaCommand.HELP_SEDATION),//TODO
                         new Transition(13, MarusiaCommand.SEDATION),
                 })
         );
