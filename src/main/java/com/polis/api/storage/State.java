@@ -1,11 +1,9 @@
 package com.polis.api.storage;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class State {
     public static final int DEFAULT_STATE_ID = -1;
@@ -17,6 +15,13 @@ public class State {
     private String text;
     private String tts;
     private Transition[] possibleTransitions;
+
+    public State(int id, MarusiaAnswer marusiaAnswer, Transition[] possibleTransitions) {
+        this.id = id;
+        this.text = marusiaAnswer.text;
+        this.tts = marusiaAnswer.tts;
+        this.possibleTransitions = possibleTransitions;
+    }
 
     public int getNextStateId(String userInput) {
         for (Transition possibleTransition : possibleTransitions) {
