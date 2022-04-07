@@ -4,6 +4,7 @@ import com.polis.api.model.MarusiaRequest;
 import com.polis.api.model.MarusiaResponse;
 import com.polis.api.model.Session;
 import com.polis.api.model.request.UserSession;
+import com.polis.api.model.response.Button;
 import com.polis.api.model.response.Response;
 import com.polis.api.storage.RepositoryImpl;
 import com.polis.api.storage.State;
@@ -12,6 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MarusiaService {
@@ -39,14 +43,24 @@ public class MarusiaService {
 
         logger.info("state id to send in response: " + state.getId());
 
+        String text = state.getText();
+        String tts = state.getTts();
+
+        if (isStatesEqual) {
+            int index = state.getRandomHelpfulPhraseIndex();
+            text = state.getHelpPhrases()[index];
+            tts = state.getHelpTtsPhrases()[index];
+        }
+
+        List<Button> buttonList = state.getCommandsArray().stream().map(Button::new).collect(Collectors.toList());
+
         Response response = new Response(
-                state.getText(),
-                state.getTts(),
+                text,
+                tts,
                 endSession,
-                Response.getButtonsArray(state.getButtonsCommands())
+                buttonList
         );
 
         return new MarusiaResponse(response, session, config.version, new UserSession(state.getId()));
     }
-
 }

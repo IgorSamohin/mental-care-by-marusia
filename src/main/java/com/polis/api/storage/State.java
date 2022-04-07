@@ -3,7 +3,10 @@ package com.polis.api.storage;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -16,25 +19,27 @@ public class State {
     private int id;
     private String text;
     private String tts;
-//    private String [] helpPhrases;
-    private String [] buttonsCommands;
+    private String[] helpPhrases;
+    private String[] helpTtsPhrases;
     private Transition[] possibleTransitions;
     private final Random random = new Random();
 
 
-    public State(int id, MarusiaAnswer marusiaAnswer, ButtonCommand buttonCommand, Transition[] possibleTransitions) {
+    public State(int id, MarusiaAnswer marusiaAnswer, HelpAnswer helpAnswer, Transition[] possibleTransitions) {
         this.id = id;
         this.text = marusiaAnswer.text;
         this.tts = marusiaAnswer.tts;
-//        this.helpPhrases = marusiaAnswer.helpAnswers;
-        this.buttonsCommands = buttonCommand == null ? null : buttonCommand.buttons;
+
+        this.helpPhrases = helpAnswer == null ? null : helpAnswer.helpAnswers;
+        this.helpTtsPhrases = helpAnswer == null ? null : helpAnswer.tts;
+
         this.possibleTransitions = possibleTransitions;
     }
 
 
     //TODO про повтор(если не нашел следующую фразу из миро)
+
     /**
-     *
      * @param userInput команда от пользователя
      * @return состояние, которое соотвествует команде пользователя
      */
@@ -51,11 +56,15 @@ public class State {
         return id;
     }
 
-//    public String getRandomHelpfulPhrase() {
-//        int phrasesNumber = helpPhrases.length;
-//
-//        int randomIndex = random.nextInt(phrasesNumber - 1);
-//
-//        return helpPhrases[randomIndex];
-//    }
+    public int getRandomHelpfulPhraseIndex() {
+        int phrasesNumber = helpPhrases.length;
+
+        return random.nextInt(phrasesNumber);
+    }
+
+    public List<String> getCommandsArray() {
+        return Arrays.stream(possibleTransitions)
+                .map(transition -> transition.getSynonyms()[0])
+                .collect(Collectors.toList());
+    }
 }

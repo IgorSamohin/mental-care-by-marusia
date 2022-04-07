@@ -68,8 +68,4 @@ public enum HelpAnswer {
         this.helpAnswers = helpAnswers;
         this.tts = tts;
     }
-
-    private String[] getArrAnswers(String... answers) {
-        return answers;
-    }
 }
