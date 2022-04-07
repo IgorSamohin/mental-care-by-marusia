@@ -17,7 +17,7 @@ import java.util.List;
 public class Response {
     private List<String> text = new ArrayList<>();
     private String tts;
-    private List<Button> buttons = new ArrayList<>();
+    private Button[] buttons;
 
     @JsonProperty("end_session")
     private boolean endSession;
@@ -39,6 +39,12 @@ public class Response {
         this.endSession = endSession;
     }
 
+    public Response(String text, String tts, boolean endSession, Button[] buttons) {
+        this(text, tts, endSession);
+
+        this.buttons = buttons;
+    }
+
     public Response(List<String> text, boolean endSession) {
         this.text = text;
         this.endSession = endSession;
@@ -48,5 +54,19 @@ public class Response {
         this.text = text;
         this.tts = tts;
         this.endSession = endSession;
+    }
+
+    //FIXME FIX
+    public static Button[] getButtonsArray(String[] commands) {
+        Button[] buttons = new Button[commands.length];
+
+//    Arrays.stream(commands).forEach(command -> buttons.add(new Button(command)));
+//        Arrays.stream(commands).map(Button::new).toList().toArray();
+        for (int i = 0; i < commands.length; i++) {
+            buttons[i] = new Button(commands[i]);
+        }
+
+
+        return buttons;
     }
 }

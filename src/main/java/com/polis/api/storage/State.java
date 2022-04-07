@@ -3,6 +3,8 @@ package com.polis.api.storage;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Random;
+
 @Getter
 @NoArgsConstructor
 public class State {
@@ -14,16 +16,30 @@ public class State {
     private int id;
     private String text;
     private String tts;
+//    private String [] helpPhrases;
+    private String [] buttonsCommands;
     private Transition[] possibleTransitions;
+    private final Random random = new Random();
 
-    public State(int id, MarusiaAnswer marusiaAnswer, Transition[] possibleTransitions) {
+
+    public State(int id, MarusiaAnswer marusiaAnswer, ButtonCommand buttonCommand, Transition[] possibleTransitions) {
         this.id = id;
         this.text = marusiaAnswer.text;
         this.tts = marusiaAnswer.tts;
+//        this.helpPhrases = marusiaAnswer.helpAnswers;
+        this.buttonsCommands = buttonCommand == null ? null : buttonCommand.buttons;
         this.possibleTransitions = possibleTransitions;
     }
 
+
+    //TODO про повтор(если не нашел следующую фразу из миро)
+    /**
+     *
+     * @param userInput команда от пользователя
+     * @return состояние, которое соотвествует команде пользователя
+     */
     public int getNextStateId(String userInput) {
+
         for (Transition possibleTransition : possibleTransitions) {
             if (possibleTransition.mustGo(userInput)) {
                 return possibleTransition.getToId();
@@ -34,4 +50,12 @@ public class State {
         }
         return id;
     }
+
+//    public String getRandomHelpfulPhrase() {
+//        int phrasesNumber = helpPhrases.length;
+//
+//        int randomIndex = random.nextInt(phrasesNumber - 1);
+//
+//        return helpPhrases[randomIndex];
+//    }
 }

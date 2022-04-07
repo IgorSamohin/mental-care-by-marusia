@@ -6,15 +6,16 @@ import java.util.Map;
 public class Data {
     static final Map<Integer, State> states = new HashMap<>();
 
+    //FIXME
     static {
         states.put(
-                -3, new State(-3, MarusiaAnswer.EXIT_ANSWER, new Transition[]{})
+                -3, new State(-3, MarusiaAnswer.EXIT_ANSWER, null, new Transition[]{})
         );
         states.put(
-                -2, new State(-2, MarusiaAnswer.ERROR_ANSWER, new Transition[]{})
+                -2, new State(-2, MarusiaAnswer.ERROR_ANSWER, null, new Transition[]{})
         );
         states.put(
-                -1, new State(-1, MarusiaAnswer.START_ANSWER, new Transition[]{
+                -1, new State(-1, MarusiaAnswer.START_ANSWER, ButtonCommand.FROM_HOME, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(0, MarusiaCommand.DISTRACTION),
                         new Transition(1, MarusiaCommand.ADVICE),
@@ -24,7 +25,7 @@ public class Data {
         );
 
         states.put(
-                0, new State(0, MarusiaAnswer.DISTRACTION_ANSWER, new Transition[]{
+                0, new State(0, MarusiaAnswer.DISTRACTION_ANSWER, ButtonCommand.FROM_HOME, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME),
                         new Transition(7, MarusiaCommand.DISTRACTION_YOGA),
@@ -34,14 +35,14 @@ public class Data {
         );
 
         states.put(
-                1, new State(1, MarusiaAnswer.ADVICE_FROM_PSYCHOLOGIST_ANSWER, new Transition[]{
+                1, new State(1, MarusiaAnswer.ADVICE_FROM_PSYCHOLOGIST_ANSWER, ButtonCommand.FROM_ADVICE, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME),
                 })
         );
 
         states.put(
-                2, new State(2, MarusiaAnswer.HELP_ANSWER, new Transition[]{
+                2, new State(2, MarusiaAnswer.HELP_ANSWER, ButtonCommand.FROM_HELP, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME),
                         new Transition(10, MarusiaCommand.HELP_DISTRACTION),
@@ -50,58 +51,58 @@ public class Data {
         );
 
         states.put(
-                3, new State(3, MarusiaAnswer.VIDEO_ANSWER, new Transition[]{
+                3, new State(3, MarusiaAnswer.VIDEO_ANSWER, ButtonCommand.FROM_SEDATION_VIDEO, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME)
                 })
         );
 
         states.put(
-                4, new State(4, MarusiaAnswer.SOOTHING_SOUND_ANSWER, new Transition[]{
+                4, new State(4, MarusiaAnswer.SOOTHING_SOUND_ANSWER, ButtonCommand.FROM_SEDATION_SOUNDS, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME)
                 })
         );
 
         states.put(
-                5, new State(5, MarusiaAnswer.MUSIC_ANSWER, new Transition[]{
+                5, new State(5, MarusiaAnswer.MUSIC_ANSWER, ButtonCommand.FROM_SEDATION_MUSIC, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME)
                 })
         );
 
         states.put(
-                6, new State(6, MarusiaAnswer.BREATHING_EXERCISE_ANSWER, new Transition[]{
+                6, new State(6, MarusiaAnswer.BREATHING_EXERCISE_ANSWER, ButtonCommand.FROM_BREATH_EXERCISE, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME)
                 })
         );
 
         states.put(
-                7, new State(7, MarusiaAnswer.YOGA_ANSWER, new Transition[]{
+                7, new State(7, MarusiaAnswer.YOGA_ANSWER, ButtonCommand.FROM_DISTRACTION_YOGA, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME)
                 })
         );
 
         states.put(
-                9, new State(9, MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER, new Transition[]{
+                9, new State(9, MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER, ButtonCommand.FROM_DISTRACTION_COUNT, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME)
                 })
         );
-        states.put(10, new State(10, MarusiaAnswer.HELP_DISTRACTION_ANSWER, new Transition[]{
+        states.put(10, new State(10, MarusiaAnswer.HELP_DISTRACTION_ANSWER, ButtonCommand.FROM_HELP_DISTRACTION, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME)
                 })
         );
-        states.put(12, new State(12, MarusiaAnswer.HELP_SEDATION_ANSWER, new Transition[]{
+        states.put(12, new State(12, MarusiaAnswer.HELP_SEDATION_ANSWER, ButtonCommand.FROM_HELP_SEDATION, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME)
                 })
         );
 
-        states.put(13, new State(13, MarusiaAnswer.SEDATION_ANSWER, new Transition[]{
+        states.put(13, new State(13, MarusiaAnswer.SEDATION_ANSWER, ButtonCommand.FROM_SEDATION, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME),
                         new Transition(3, MarusiaCommand.SEDATION_VIDEO),

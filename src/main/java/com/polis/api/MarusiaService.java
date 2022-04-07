@@ -24,17 +24,29 @@ public class MarusiaService {
     private Config config;
 
     public MarusiaResponse handleRequest(MarusiaRequest request) {
-        State nextState = repository.getNextState(request.state.session.prevStateId, request.request.command);
+        int prevStateId = request.state.session.prevStateId;
+        State nextState = repository.getNextState(prevStateId, request.request.command);
 
         // todo парсить error state
         boolean endSession = config.endSessionId == nextState.getId();
-        return createResponse(nextState, endSession, request.session);
+        boolean isStatesEqual = prevStateId == nextState.getId();
+
+        return createResponse(nextState, endSession, request.session, isStatesEqual);
     }
 
     //объединяем аргументы в ответ.
-    private MarusiaResponse createResponse(State state, boolean endSession, Session session) {
-        Response response = new Response(state.getText(), state.getTts(), endSession);
+    private MarusiaResponse createResponse(State state, boolean endSession, Session session, boolean isStatesEqual) {
+
+        logger.info("state id to send in response: " + state.getId());
+
+        Response response = new Response(
+                state.getText(),
+                state.getTts(),
+                endSession,
+                Response.getButtonsArray(state.getButtonsCommands())
+        );
 
         return new MarusiaResponse(response, session, config.version, new UserSession(state.getId()));
     }
+
 }
