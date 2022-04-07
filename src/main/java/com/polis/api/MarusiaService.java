@@ -29,24 +29,32 @@ public class MarusiaService {
 
     public MarusiaResponse handleRequest(MarusiaRequest request) {
         int prevStateId = request.state.session.prevStateId;
+
+        //приходит прошлый стейт и команда
         State nextState = repository.getNextState(prevStateId, request.request.command);
 
         // todo парсить error state
-        boolean endSession = config.endSessionId == nextState.getId();
-        boolean isStatesEqual = prevStateId == nextState.getId();
 
-        return createResponse(nextState, endSession, request.session, isStatesEqual);
+        //FIXME MAGIC NUMBER
+        boolean isWrongCommand = nextState.getId() == -2;
+
+        nextState = isWrongCommand ? repository.getState(prevStateId) : nextState;
+
+        boolean endSession = config.endSessionId == nextState.getId();
+
+
+        return createResponse(nextState, endSession, request.session, isWrongCommand);
     }
 
     //объединяем аргументы в ответ.
-    private MarusiaResponse createResponse(State state, boolean endSession, Session session, boolean isStatesEqual) {
-
-        logger.info("state id to send in response: " + state.getId());
+    private MarusiaResponse createResponse(State state, boolean endSession, Session session, boolean isWrongCommand) {
 
         String text = state.getText();
         String tts = state.getTts();
 
-        if (isStatesEqual) {
+        /*если прошлый стейт совпадает с текущим -> пришла неверная команда, но фраза мб терминальной, терминальной по идее
+        не нужно использовать разные фразы чтобы помочь*/
+        if (isWrongCommand) {
             int index = state.getRandomHelpfulPhraseIndex();
             text = state.getHelpPhrases()[index];
             tts = state.getHelpTtsPhrases()[index];
@@ -61,6 +69,6 @@ public class MarusiaService {
                 buttonList
         );
 
-        return new MarusiaResponse(response, session, config.version, new UserSession(state.getId()));
+        return new MarusiaResponse(response, session, config.version, new UserSession(state.getId(), isWrongCommand));
     }
 }

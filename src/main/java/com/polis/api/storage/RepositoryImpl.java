@@ -9,26 +9,29 @@ public class RepositoryImpl {
     private final Map<Integer, State> states = Data.states;
     private final State defaultState = new State();
 
-    public State getState(String userInput) {
-        for (State value : states.values()) {
-            if (value.getText().equals(userInput)) {
-                return value;
-            }
-        }
-        return defaultState;
-    }
-
     public State getState(int stateId) {
         return states.get(stateId);
     }
 
+    //FIXME MAGIC NUMBER
     public State getNextState(int currentStateId, String userInput) {
+
+        if (userInput.equals("on_interrupt")) {
+            return states.get(-3);
+        }
+
         State currentState = states.get(currentStateId);
 
         int nextStateId = currentState.getNextStateId(userInput);
         if (nextStateId == -1) {
-            nextStateId = states.get(-1).getNextStateId(userInput);
+            return states.get(-1);
         }
+
+        //не нашли команду, поэтому ошибка
+        if (nextStateId == -2) {
+            return getState(-2);
+        }
+
 
         return getState(nextStateId);
     }

@@ -2,6 +2,8 @@ package com.polis.api.storage;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +23,11 @@ public class State {
     private String tts;
     private String[] helpPhrases;
     private String[] helpTtsPhrases;
+
     private Transition[] possibleTransitions;
+
+    //по идее если она терминальная, то это что-то скидывает, поэтому можно попросить еще
+
     private final Random random = new Random();
 
 
@@ -44,22 +50,19 @@ public class State {
      * @return состояние, которое соотвествует команде пользователя
      */
     public int getNextStateId(String userInput) {
-
         for (Transition possibleTransition : possibleTransitions) {
             if (possibleTransition.mustGo(userInput)) {
                 return possibleTransition.getToId();
             }
         }
-        if (id == EXIT_STATE_ID) {
-            return DEFAULT_STATE_ID;
-        }
-        return id;
+
+        return ERROR_STATE_ID;
     }
 
     public int getRandomHelpfulPhraseIndex() {
         int phrasesNumber = helpPhrases.length;
 
-        return random.nextInt(phrasesNumber);
+        return random.nextInt(phrasesNumber - 1) + 1;
     }
 
     public List<String> getCommandsArray() {
