@@ -6,7 +6,7 @@ import java.util.Map;
 
 @Repository
 public class RepositoryImpl {
-    private Map<Integer, State> states = Data.states;
+    private final Map<Integer, State> states = Data.states;
     private final State defaultState = new State();
 
     public State getState(String userInput) {
