@@ -22,18 +22,33 @@ public class State {
     private Command[] commands = null;
     private AudioPlayer audioPlayer = null;
 
-    public State(int id, String text, String tts, Transition[] possibleTransitions) {
+    public State(
+            int id,
+            String text,
+            String tts,
+            Transition[] possibleTransitions,
+            Command[] commands,
+            AudioPlayer audioPlayer
+    ) {
         this.id = id;
         this.text = text;
         this.tts = tts;
         this.possibleTransitions = possibleTransitions;
+        this.commands = commands;
+        this.audioPlayer = audioPlayer;
     }
 
     public State(int id, MarusiaAnswer marusiaAnswer, Transition[] possibleTransitions) {
-        this.id = id;
-        this.text = marusiaAnswer.text;
-        this.tts = marusiaAnswer.tts;
-        this.possibleTransitions = possibleTransitions;
+        this(id, marusiaAnswer.text, marusiaAnswer.tts, possibleTransitions, new Command[]{}, null);
+    }
+
+    public State(
+            int id,
+            MarusiaAnswer marusiaAnswer,
+            Transition[] possibleTransitions,
+            Command[] commands,
+            AudioPlayer audioPlayer) {
+        this(id, marusiaAnswer.text, marusiaAnswer.tts, possibleTransitions, commands, audioPlayer);
     }
 
     public int getNextStateId(String userInput) {

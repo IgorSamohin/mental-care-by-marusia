@@ -1,6 +1,8 @@
 package com.polis.api.storage;
 
 public enum MarusiaCommand {
+    TEST("ntcn", "тест"),
+
     EXIT("пока", "выйди", "хочу выйти", "стоп", "все", "хватит"),
     HOME("начало", "вернись в начало", "заново", "давай по новой"),
 

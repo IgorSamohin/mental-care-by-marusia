@@ -1,18 +1,23 @@
 package com.polis.api.storage;
 
+import com.polis.api.model.response.components.Command;
+import com.polis.api.model.response.components.audio.AudioPlayer;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Data {
-    static final Map<Integer, State> states = new HashMap<>();
+    public static final AudioPlayer TEST_AUDIO_PLAYER = new AudioPlayer(new String[]{"-2000512010_456239028"});
+    public static final int TEST_ID = Integer.MIN_VALUE;
+
+    public static final Map<Integer, State> states = new HashMap<>();
 
     static {
-        states.put(
-                -3, new State(-3, MarusiaAnswer.EXIT_ANSWER, new Transition[]{})
+        states.put(TEST_ID, new State(TEST_ID, "ntcn", "", new Transition[]{}, new Command[]{},
+                        TEST_AUDIO_PLAYER)
         );
-        states.put(
-                -2, new State(-2, MarusiaAnswer.ERROR_ANSWER, new Transition[]{})
-        );
+        states.put(-3, new State(-3, MarusiaAnswer.EXIT_ANSWER, new Transition[]{}));
+        states.put(-2, new State(-2, MarusiaAnswer.ERROR_ANSWER, new Transition[]{}));
         states.put(
                 -1, new State(-1, MarusiaAnswer.START_ANSWER, new Transition[]{
                         new Transition(-3, MarusiaCommand.EXIT),
@@ -20,6 +25,7 @@ public class Data {
                         new Transition(1, MarusiaCommand.ADVICE),
                         new Transition(2, MarusiaCommand.HELP),
                         new Transition(13, MarusiaCommand.SEDATION),
+                        new Transition(TEST_ID, MarusiaCommand.TEST), //todo delete in release
                 })
         );
 
