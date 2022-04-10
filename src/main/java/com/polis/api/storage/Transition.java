@@ -1,6 +1,7 @@
 package com.polis.api.storage;
 
 import lombok.Getter;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 @Getter
 public class Transition {
@@ -12,9 +13,11 @@ public class Transition {
         this.synonyms = marusiaCommand.commands;
     }
 
+    // TODO improve this
     public boolean mustGo(String userInput) {
         for (String synonym : synonyms) {
-            if (synonym.equalsIgnoreCase(userInput)) {
+            int res = FuzzySearch.weightedRatio(userInput, synonym);
+            if (res > 80) {
                 return true;
             }
         }

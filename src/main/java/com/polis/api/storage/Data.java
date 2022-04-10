@@ -34,8 +34,10 @@ public class Data {
                         new Transition(-3, MarusiaCommand.EXIT),
                         new Transition(-1, MarusiaCommand.HOME),
                         new Transition(7, MarusiaCommand.DISTRACTION_YOGA),
-                        new Transition(8, MarusiaCommand.DISTRACTION_NUMBER_DIVINATION),
                         new Transition(9, MarusiaCommand.DISTRACTION_COUNT)
+
+                        // TODO create state, because empty transition
+                        //new Transition(8, MarusiaCommand.DISTRACTION_NUMBER_DIVINATION),
                 })
         );
 
