@@ -28,6 +28,8 @@ public class MarusiaService {
     private Config config;
 
     public MarusiaResponse handleRequest(MarusiaRequest request) {
+
+        logger.info("prev state from request: " + request.getState().session.prevStateId);
         int prevStateId = request.state.session.prevStateId;
 
         //приходит прошлый стейт и команда
@@ -35,40 +37,28 @@ public class MarusiaService {
 
         // todo парсить error state
 
-        //FIXME MAGIC NUMBER
-        boolean isWrongCommand = nextState.getId() == -2;
-
-        nextState = isWrongCommand ? repository.getState(prevStateId) : nextState;
-
         boolean endSession = config.endSessionId == nextState.getId();
 
+        logger.info("state to output:" + nextState.getId());
 
-        return createResponse(nextState, endSession, request.session, isWrongCommand);
+        return createResponse(nextState, endSession, request.session/*,isWrongCommand*/);
     }
 
     //объединяем аргументы в ответ.
-    private MarusiaResponse createResponse(State state, boolean endSession, Session session, boolean isWrongCommand) {
+    private MarusiaResponse createResponse(State state, boolean endSession, Session session/*, boolean isWrongCommand*/) {
 
         String text = state.getText();
         String tts = state.getTts();
 
-        /*если прошлый стейт совпадает с текущим -> пришла неверная команда, но фраза мб терминальной, терминальной по идее
-        не нужно использовать разные фразы чтобы помочь*/
-        if (isWrongCommand) {
-            int index = state.getRandomHelpfulPhraseIndex();
-            text = state.getHelpPhrases()[index];
-            tts = state.getHelpTtsPhrases()[index];
-        }
-
-        List<Button> buttonList = state.getCommandsArray().stream().map(Button::new).collect(Collectors.toList());
+//        List<Button> buttonList = state.getCommandsArray().stream().map(Button::new).collect(Collectors.toList());
 
         Response response = new Response(
                 text,
                 tts,
-                endSession,
-                buttonList
+                endSession
+//                buttonList
         );
 
-        return new MarusiaResponse(response, session, config.version, new UserSession(state.getId(), isWrongCommand));
+        return new MarusiaResponse(response, session, config.version, new UserSession(state.getId()));
     }
 }
