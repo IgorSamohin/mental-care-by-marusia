@@ -3,6 +3,7 @@ package com.polis.api.storage;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -20,18 +21,24 @@ public class State {
     private String text;
     private String tts;
 
-    private Transition[] possibleTransitions;
+//    private Transition[] possibleTransitions;
+    private List<Transition> possibleTransitions;
+
+    private boolean repeatable;
     private final Random random = new Random();
 
 
-    public State(int id, MarusiaAnswer marusiaAnswer, Transition[] possibleTransitions) {
+    public State(int id, MarusiaAnswer marusiaAnswer, Transition[] possibleTransitions, boolean repeatable) {
         this.id = id;
         this.text = marusiaAnswer.text;
         this.tts = marusiaAnswer.tts;
 
-        this.possibleTransitions = possibleTransitions;
-    }
+        this.possibleTransitions = new ArrayList<>(Arrays.stream(possibleTransitions).toList());
 
+        if (repeatable) {
+            this.possibleTransitions.add(new Transition(id, MarusiaCommand.MORE));
+        }
+    }
 
     //TODO про повтор(если не нашел следующую фразу из миро)
 
