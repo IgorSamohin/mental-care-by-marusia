@@ -1,11 +1,13 @@
 package com.polis.api.storage;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.polis.api.model.response.components.Command;
+import com.polis.api.model.response.components.audio.AudioPlayer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class State {
     public static final int DEFAULT_STATE_ID = -1;
@@ -17,6 +19,37 @@ public class State {
     private String text;
     private String tts;
     private Transition[] possibleTransitions;
+    private Command[] commands = null;
+    private AudioPlayer audioPlayer = null;
+
+    public State(
+            int id,
+            String text,
+            String tts,
+            Transition[] possibleTransitions,
+            Command[] commands,
+            AudioPlayer audioPlayer
+    ) {
+        this.id = id;
+        this.text = text;
+        this.tts = tts;
+        this.possibleTransitions = possibleTransitions;
+        this.commands = commands;
+        this.audioPlayer = audioPlayer;
+    }
+
+    public State(int id, MarusiaAnswer marusiaAnswer, Transition[] possibleTransitions) {
+        this(id, marusiaAnswer.text, marusiaAnswer.tts, possibleTransitions, new Command[]{}, null);
+    }
+
+    public State(
+            int id,
+            MarusiaAnswer marusiaAnswer,
+            Transition[] possibleTransitions,
+            Command[] commands,
+            AudioPlayer audioPlayer) {
+        this(id, marusiaAnswer.text, marusiaAnswer.tts, possibleTransitions, commands, audioPlayer);
+    }
 
     public int getNextStateId(String userInput) {
         for (Transition possibleTransition : possibleTransitions) {

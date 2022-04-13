@@ -8,7 +8,7 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Button {
+public class ResponseButton {
     private String title;
     private String url;
     private JSONObject payload;
