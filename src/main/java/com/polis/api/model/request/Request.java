@@ -1,9 +1,9 @@
 package com.polis.api.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.polis.api.model.response.ResponsePayload;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 @AllArgsConstructor
 @ToString
@@ -15,7 +15,7 @@ public class Request {
 
     public String type;
 
-    public JSONObject payload;
+    public ResponsePayload payload; // fixme change type
 
     public Nlu nlu;
 }

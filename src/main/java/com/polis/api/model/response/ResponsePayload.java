@@ -7,8 +7,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ResponseButton {
-    private String title;
-    private String url;
-    private ResponsePayload payload;
+public class ResponsePayload { //todo
 }

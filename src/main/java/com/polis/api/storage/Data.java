@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Data {
-    public static final AudioPlayer TEST_AUDIO_PLAYER = new AudioPlayer(new String[]{"-2000512010_456239028"});
+    public static final AudioPlayer TEST_AUDIO_PLAYER = new AudioPlayer(new String[]{"2000512010_456239028"});
     public static final int TEST_ID = Integer.MIN_VALUE;
 
     public static final Map<Integer, State> states = new HashMap<>();
