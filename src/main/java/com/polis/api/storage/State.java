@@ -1,6 +1,5 @@
 package com.polis.api.storage;
 
-import com.polis.api.RandomUtils;
 import com.polis.api.storage.answer.Answer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,8 +7,6 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -24,7 +21,6 @@ public class State {
     private List<Transition> possibleTransitions;
     private List<String> buttons;
 
-    //TODO можно сюда сразу массив передавать, а в методе getAnswer рандомить
     public State(int id, Answer answer, Transition[] possibleTransitions, String[] buttons, boolean repeatable) {
         this.id = id;
         this.answer = answer;
@@ -37,8 +33,6 @@ public class State {
             this.buttons.add("Еще");
         }
     }
-
-    //TODO про повтор(если не нашел следующую фразу из миро)
 
     /**
      * @param userInput команда от пользователя
@@ -58,21 +52,5 @@ public class State {
     // результаты, но кажется если тут завязано на рандоме, так будет всегда, нельяз будет вызывать таким образом
     public MarusiaAnswer getAnswer() {
         return answer.getAnswer();
-    }
-
-//    public MarusiaAnswer getAnswer() {
-//        if (answers.length == 1) {
-//          return answers[0];
-//        }
-//
-//        int randomIndex = RandomUtils.randomNumberFromZeroToBound(answers.length);
-//
-//
-//        return answers[randomIndex];
-//    }
-
-        //TODO HMMM
-    public List<String> getCommandsArray() {
-        return buttons;
     }
 }
