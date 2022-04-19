@@ -1,6 +1,7 @@
 package com.polis.api.storage;
 
 public enum MarusiaAnswer {
+    TEST_ANSWER("test", ""),
     EXIT_ANSWER("Возвращайтесь в следующий раз", "Возвращайтесь в следующий раз"),
     ERROR_ANSWER("Я вас не поняла. Попробуйте ещё раз", "Я вас не поняла. Попробуйте ещё раз"),
 

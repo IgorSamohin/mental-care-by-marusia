@@ -9,3 +9,4 @@ build
 *.log
 *.iml
 /target
+/src/main/resources/keystore.p12

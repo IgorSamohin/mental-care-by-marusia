@@ -5,19 +5,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 @AllArgsConstructor
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Button {
+public class ResponseButton {
     private String title;
     private String url;
-    private JSONObject payload;
+    private ResponsePayload payload;
 
-
-    public Button(String title) {
+    public ResponseButton(String title) {
         this.title = title;
     }
+
 }

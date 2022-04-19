@@ -4,7 +4,7 @@ import com.polis.api.model.MarusiaRequest;
 import com.polis.api.model.MarusiaResponse;
 import com.polis.api.model.Session;
 import com.polis.api.model.request.UserSession;
-import com.polis.api.model.response.Button;
+import com.polis.api.model.response.ResponseButton;
 import com.polis.api.model.response.Response;
 import com.polis.api.storage.MarusiaAnswer;
 import com.polis.api.storage.RepositoryImpl;
@@ -52,7 +52,7 @@ public class MarusiaService {
         String text = marusiaAnswer.text;
         String tts = marusiaAnswer.tts;
 
-        List<Button> buttonList = state.getButtons().stream().map(Button::new).collect(Collectors.toList());
+        List<ResponseButton> buttonList = state.getButtons().stream().map(ResponseButton::new).collect(Collectors.toList());
 
         Response response = new Response(
                 text,

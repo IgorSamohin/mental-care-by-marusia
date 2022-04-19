@@ -1,5 +1,7 @@
 package com.polis.api.storage;
 
+import com.polis.api.model.response.components.Command;
+import com.polis.api.model.response.components.audio.AudioPlayer;
 import com.polis.api.storage.answer.Answer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +22,17 @@ public class State {
     private Answer answer;
     private List<Transition> possibleTransitions;
     private List<String> buttons;
+    private String text;
+    private String tts;
+    private Command[] commands = null;
+    private AudioPlayer audioPlayer = null;
 
-    public State(int id, Answer answer, Transition[] possibleTransitions, String[] buttons, boolean repeatable) {
+    public State(int id, Answer answer, Transition[] possibleTransitions, String[] buttons, Command[] commands,
+                 AudioPlayer audioPlayer, boolean repeatable) {
         this.id = id;
         this.answer = answer;
+        this.commands = commands;
+        this.audioPlayer = audioPlayer;
 
         this.possibleTransitions = new ArrayList<>(Arrays.stream(possibleTransitions).toList());
         this.buttons = new ArrayList<>(Arrays.stream(buttons).toList());
