@@ -6,8 +6,6 @@ import com.polis.api.storage.answer.SingleAnswer;
 import java.util.HashMap;
 import java.util.Map;
 
-
-//TODO еще добавить, разобраться с блоком команд, где рандомиться, отрефакторить
 public class Data {
     static final Map<Integer, State> states = new HashMap<>();
     private static final Transition[] allTransitions = new Transition[]{
