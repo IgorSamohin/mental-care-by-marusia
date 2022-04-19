@@ -1,5 +1,7 @@
 package com.polis.api.storage;
 
+import com.polis.api.RandomUtils;
+import com.polis.api.storage.answer.Answer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,25 +20,21 @@ public class State {
     public static final int MENU_ID = 2;
 
     private int id;
-    private String text;
-    private String tts;
-
-//    private Transition[] possibleTransitions;
+    private Answer answer;
     private List<Transition> possibleTransitions;
+    private List<String> buttons;
 
-    private boolean repeatable;
-    private final Random random = new Random();
-
-
-    public State(int id, MarusiaAnswer marusiaAnswer, Transition[] possibleTransitions, boolean repeatable) {
+    //TODO можно сюда сразу массив передавать, а в методе getAnswer рандомить
+    public State(int id, Answer answer, Transition[] possibleTransitions, String[] buttons, boolean repeatable) {
         this.id = id;
-        this.text = marusiaAnswer.text;
-        this.tts = marusiaAnswer.tts;
+        this.answer = answer;
 
         this.possibleTransitions = new ArrayList<>(Arrays.stream(possibleTransitions).toList());
+        this.buttons = new ArrayList<>(Arrays.stream(buttons).toList());
 
         if (repeatable) {
             this.possibleTransitions.add(new Transition(id, MarusiaCommand.MORE));
+            this.buttons.add("Еще");
         }
     }
 
@@ -56,10 +54,25 @@ public class State {
         return ERROR_STATE_ID;
     }
 
-//    //TODO HMMM
-//    public List<String> getCommandsArray() {
-//        return Arrays.stream(possibleTransitions)
-//                .map(transition -> transition.getSynonyms()[0])
-//                .collect(Collectors.toList());
+    //FIXME возможно так плохо, тк можно вызвать getAnswer().text и сразу после этого getAnswer().tts и буду разные
+    // результаты, но кажется если тут завязано на рандоме, так будет всегда, нельяз будет вызывать таким образом
+    public MarusiaAnswer getAnswer() {
+        return answer.getAnswer();
+    }
+
+//    public MarusiaAnswer getAnswer() {
+//        if (answers.length == 1) {
+//          return answers[0];
+//        }
+//
+//        int randomIndex = RandomUtils.randomNumberFromZeroToBound(answers.length);
+//
+//
+//        return answers[randomIndex];
 //    }
+
+        //TODO HMMM
+    public List<String> getCommandsArray() {
+        return buttons;
+    }
 }

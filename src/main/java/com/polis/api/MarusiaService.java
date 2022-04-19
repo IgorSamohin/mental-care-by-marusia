@@ -6,6 +6,7 @@ import com.polis.api.model.Session;
 import com.polis.api.model.request.UserSession;
 import com.polis.api.model.response.Button;
 import com.polis.api.model.response.Response;
+import com.polis.api.storage.MarusiaAnswer;
 import com.polis.api.storage.RepositoryImpl;
 import com.polis.api.storage.State;
 import com.polis.config.Config;
@@ -28,7 +29,6 @@ public class MarusiaService {
     private Config config;
 
     public MarusiaResponse handleRequest(MarusiaRequest request) {
-
         logger.info("prev state from request: " + request.getState().session.prevStateId);
         int prevStateId = request.state.session.prevStateId;
 
@@ -41,22 +41,24 @@ public class MarusiaService {
 
         logger.info("state to output:" + nextState.getId());
 
-        return createResponse(nextState, endSession, request.session/*,isWrongCommand*/);
+        return createResponse(nextState, endSession, request.session);
     }
 
     //объединяем аргументы в ответ.
-    private MarusiaResponse createResponse(State state, boolean endSession, Session session/*, boolean isWrongCommand*/) {
+    private MarusiaResponse createResponse(State state, boolean endSession, Session session) {
+        //Только так вызывать, для одинакового текста и ттса
+        MarusiaAnswer marusiaAnswer = state.getAnswer();
 
-        String text = state.getText();
-        String tts = state.getTts();
+        String text = marusiaAnswer.text;
+        String tts = marusiaAnswer.tts;
 
-//        List<Button> buttonList = state.getCommandsArray().stream().map(Button::new).collect(Collectors.toList());
+        List<Button> buttonList = state.getButtons().stream().map(Button::new).collect(Collectors.toList());
 
         Response response = new Response(
                 text,
                 tts,
-                endSession
-//                buttonList
+                endSession,
+                buttonList
         );
 
         return new MarusiaResponse(response, session, config.version, new UserSession(state.getId()));

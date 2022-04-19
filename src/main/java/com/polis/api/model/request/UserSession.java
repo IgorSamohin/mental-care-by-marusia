@@ -11,7 +11,4 @@ import lombok.ToString;
 public class UserSession {
     @JsonProperty("prev_state_id")
     public int prevStateId = -1;
-
-    @JsonProperty("is_wrong_command")
-    public boolean isWrongCommand = false;
 }
