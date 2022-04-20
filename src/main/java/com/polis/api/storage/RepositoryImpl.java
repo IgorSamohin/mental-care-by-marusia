@@ -14,11 +14,10 @@ public class RepositoryImpl {
         return states.get(stateId);
     }
 
-    //FIXME MAGIC NUMBER
     public State getNextState(int currentStateId, String userInput) {
 
         if (userInput.equals("on_interrupt")) {
-            return states.get(-3);
+            return states.get(State.EXIT_STATE_ID);
         }
 
         State currentState = states.get(currentStateId);
@@ -26,8 +25,8 @@ public class RepositoryImpl {
         int nextStateId = currentState.getNextStateId(userInput);
 
         //не нашли команду, поэтому ошибка
-        if (nextStateId == -2) {
-            return getState(-2);
+        if (nextStateId == State.ERROR_STATE_ID) {
+            return getState(State.ERROR_STATE_ID);
         }
 
 

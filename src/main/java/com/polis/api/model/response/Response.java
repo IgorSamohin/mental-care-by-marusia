@@ -39,7 +39,7 @@ public class Response {
         this(state.getMarusiaAnswer().text, state.getMarusiaAnswer().tts, state.getCommands(), state.getAudioPlayer(), endSession);
     }
 
-    public Response(String text, boolean endSession) {
+    public Response(String text, boolean endSession) { //fixme нужно причесать все эти конструкторы
         this.text.add(text);
         this.tts = text;
         this.endSession = endSession;

@@ -65,9 +65,7 @@ public class State {
             if (possibleTransition.mustGo(userInput)) {
                 int[] toIds = possibleTransition.getToIds();
 
-                int index = toIds.length == 1 ? 0 : getRandomStateId(toIds);
-
-                return toIds[index];
+                return getRandomStateId(toIds);
             }
         }
 
@@ -75,6 +73,9 @@ public class State {
     }
 
     private int getRandomStateId(int[] ids) {
-        return ThreadLocalRandom.current().nextInt(ids.length);
+        if (ids.length == 1) {
+            return ids[0];
+        }
+        return ids[ThreadLocalRandom.current().nextInt(ids.length)];
     }
 }
