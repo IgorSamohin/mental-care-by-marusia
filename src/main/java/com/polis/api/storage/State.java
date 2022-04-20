@@ -1,14 +1,15 @@
 package com.polis.api.storage;
 
+import com.polis.api.model.response.ResponseButton;
 import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.audio.AudioPlayer;
-import com.polis.api.storage.answer.Answer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 @NoArgsConstructor
@@ -19,28 +20,40 @@ public class State {
     public static final int MENU_ID = 2;
 
     private int id;
-    private Answer answer;
+    private MarusiaAnswer marusiaAnswer;
     private List<Transition> possibleTransitions;
-    private List<String> buttons;
-    private String text;
-    private String tts;
+    private List<ResponseButton> buttons;
     private Command[] commands = null;
     private AudioPlayer audioPlayer = null;
 
-    public State(int id, Answer answer, Transition[] possibleTransitions, String[] buttons, Command[] commands,
-                 AudioPlayer audioPlayer, boolean repeatable) {
-        this.id = id;
-        this.answer = answer;
-        this.commands = commands;
-        this.audioPlayer = audioPlayer;
+    public State(int id, MarusiaAnswer marusiaAnswer, Transition[] possibleTransitions, String[] buttons, boolean repeatable) {
 
-        this.possibleTransitions = new ArrayList<>(Arrays.stream(possibleTransitions).toList());
-        this.buttons = new ArrayList<>(Arrays.stream(buttons).toList());
+        this(id, marusiaAnswer, possibleTransitions, null, null);
+
+        this.buttons = new ArrayList<>(Arrays.stream(buttons).map(ResponseButton::new).toList());
 
         if (repeatable) {
             this.possibleTransitions.add(new Transition(id, MarusiaCommand.MORE));
-            this.buttons.add("Еще");
+            this.buttons.add(new ResponseButton("Еще"));
         }
+
+    }
+
+    public State(int id, MarusiaAnswer marusiaAnswer, Transition[] possibleTransitions) {
+        this(id, marusiaAnswer, possibleTransitions, new Command[]{}, null);
+    }
+
+    public State(
+            int id,
+            MarusiaAnswer marusiaAnswer,
+            Transition[] possibleTransitions,
+            Command[] commands,
+            AudioPlayer audioPlayer) {
+        this.id = id;
+        this.marusiaAnswer = marusiaAnswer;
+        this.possibleTransitions = new ArrayList<>(Arrays.stream(possibleTransitions).toList());
+        this.commands = commands;
+        this.audioPlayer = audioPlayer;
     }
 
     /**
@@ -50,16 +63,18 @@ public class State {
     public int getNextStateId(String userInput) {
         for (Transition possibleTransition : possibleTransitions) {
             if (possibleTransition.mustGo(userInput)) {
-                return possibleTransition.getToId();
+                int[] toIds = possibleTransition.getToIds();
+
+                int index = toIds.length == 1 ? 0 : getRandomStateId(toIds);
+
+                return toIds[index];
             }
         }
 
         return ERROR_STATE_ID;
     }
 
-    //FIXME возможно так плохо, тк можно вызвать getAnswer().text и сразу после этого getAnswer().tts и буду разные
-    // результаты, но кажется если тут завязано на рандоме, так будет всегда, нельяз будет вызывать таким образом
-    public MarusiaAnswer getAnswer() {
-        return answer.getAnswer();
+    private int getRandomStateId(int[] ids) {
+        return ThreadLocalRandom.current().nextInt(ids.length);
     }
 }

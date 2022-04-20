@@ -2,6 +2,7 @@ package com.polis.api.storage;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.Map;
 
 @Repository
@@ -23,9 +24,6 @@ public class RepositoryImpl {
         State currentState = states.get(currentStateId);
 
         int nextStateId = currentState.getNextStateId(userInput);
-        if (nextStateId == -1) {
-            return states.get(-1);
-        }
 
         //не нашли команду, поэтому ошибка
         if (nextStateId == -2) {

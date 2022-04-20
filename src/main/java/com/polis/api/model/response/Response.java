@@ -2,8 +2,8 @@ package com.polis.api.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.Command;
+import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.audio.AudioPlayer;
 import com.polis.api.storage.State;
 import lombok.AllArgsConstructor;
@@ -36,7 +36,7 @@ public class Response {
     private AudioPlayer audioPlayer = null;
 
     public Response(State state, boolean endSession) {
-        this(state.getText(), state.getTts(), state.getCommands(), state.getAudioPlayer(), endSession);
+        this(state.getMarusiaAnswer().text, state.getMarusiaAnswer().tts, state.getCommands(), state.getAudioPlayer(), endSession);
     }
 
     public Response(String text, boolean endSession) {

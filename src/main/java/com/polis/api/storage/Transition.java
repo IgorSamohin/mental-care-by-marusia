@@ -4,11 +4,16 @@ import lombok.Getter;
 
 @Getter
 public class Transition {
-    private final int toId;
+    private final int[] toIds;
     private final String[] synonyms;
 
     public Transition(int toId, MarusiaCommand marusiaCommand) {
-        this.toId = toId;
+        this.toIds = new int[]{toId};
+        this.synonyms = marusiaCommand.commands;
+    }
+
+    public Transition(int[] toIds, MarusiaCommand marusiaCommand) {
+        this.toIds = toIds;
         this.synonyms = marusiaCommand.commands;
     }
 
