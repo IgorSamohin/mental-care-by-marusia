@@ -2,6 +2,7 @@ package com.polis.api.storage;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.Map;
 
 @Repository
@@ -9,26 +10,25 @@ public class RepositoryImpl {
     private final Map<Integer, State> states = Data.states;
     private final State defaultState = new State();
 
-    public State getState(String userInput) {
-        for (State value : states.values()) {
-            if (value.getText().equals(userInput)) {
-                return value;
-            }
-        }
-        return defaultState;
-    }
-
     public State getState(int stateId) {
         return states.get(stateId);
     }
 
     public State getNextState(int currentStateId, String userInput) {
+
+        if (userInput.equals("on_interrupt")) {
+            return states.get(State.EXIT_STATE_ID);
+        }
+
         State currentState = states.get(currentStateId);
 
         int nextStateId = currentState.getNextStateId(userInput);
-        if (nextStateId == -1) {
-            nextStateId = states.get(-1).getNextStateId(userInput);
+
+        //не нашли команду, поэтому ошибка
+        if (nextStateId == State.ERROR_STATE_ID) {
+            return getState(State.ERROR_STATE_ID);
         }
+
 
         return getState(nextStateId);
     }

@@ -2,8 +2,8 @@ package com.polis.api.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.Command;
+import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.audio.AudioPlayer;
 import com.polis.api.storage.State;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.List;
 public class Response {
     private List<String> text = new ArrayList<>();
     private String tts;
-    private List<ResponseButton> buttons = new ArrayList<>();
+    private List<ResponseButton> buttons;
 
     @JsonProperty("end_session")
     private boolean endSession;
@@ -36,10 +36,10 @@ public class Response {
     private AudioPlayer audioPlayer = null;
 
     public Response(State state, boolean endSession) {
-        this(state.getText(), state.getTts(), state.getCommands(), state.getAudioPlayer(), endSession);
+        this(state.getMarusiaAnswer().text, state.getMarusiaAnswer().tts, state.getCommands(), state.getAudioPlayer(), endSession);
     }
 
-    public Response(String text, boolean endSession) {
+    public Response(String text, boolean endSession) { //fixme нужно причесать все эти конструкторы
         this.text.add(text);
         this.tts = text;
         this.endSession = endSession;
@@ -61,6 +61,12 @@ public class Response {
         }
         this.endSession = endSession;
         this.audioPlayer = audioPlayer;
+    }
+
+    public Response(String text, String tts, boolean endSession, List<ResponseButton> buttons) {
+        this(text, tts, endSession);
+
+        this.buttons = buttons;
     }
 
     public Response(List<String> text, boolean endSession) {
