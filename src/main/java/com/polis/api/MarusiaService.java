@@ -18,11 +18,14 @@ import org.springframework.stereotype.Service;
 public class MarusiaService {
     private Logger logger = LoggerFactory.getLogger(MarusiaService.class);
 
-    @Autowired
-    private RepositoryImpl repository;
+    private final RepositoryImpl repository;
+    private final Config config;
 
     @Autowired
-    private Config config;
+    public MarusiaService(RepositoryImpl repository, Config config) {
+        this.repository = repository;
+        this.config = config;
+    }
 
     public MarusiaResponse handleRequest(MarusiaRequest request) {
         int prevStateId = request.state.session.prevStateId;

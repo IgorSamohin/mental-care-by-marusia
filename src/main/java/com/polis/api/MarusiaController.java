@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @CrossOrigin(value = "https://skill-debugger.marusia.mail.ru")
 public class MarusiaController {
+    private final Logger logger = LoggerFactory.getLogger(MarusiaController.class);
+    private final MarusiaService service;
+
     @Autowired
-    private MarusiaService service;
-    private Logger logger = LoggerFactory.getLogger(MarusiaController.class);
+    public MarusiaController(MarusiaService service) {
+        this.service = service;
+    }
 
     @PostMapping("/webhook")
     @ResponseBody
