@@ -14,13 +14,12 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response {
-    private List<String> text = new ArrayList<>();
+    private List<String> text;
     private String tts;
     private List<ResponseButton> buttons;
 
@@ -30,53 +29,22 @@ public class Response {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private ResponseCard card;
 
-    private List<Command> commands = new ArrayList<>();
+    private List<Command> commands;
 
     @JsonProperty("audio_player")
     private AudioPlayer audioPlayer = null;
 
-    public Response(State state, boolean endSession) {
-        this(state.getMarusiaAnswer().text, state.getMarusiaAnswer().tts, state.getCommands(), state.getAudioPlayer(), endSession);
-    }
-
-    public Response(String text, boolean endSession) { //fixme нужно причесать все эти конструкторы
-        this.text.add(text);
-        this.tts = text;
-        this.endSession = endSession;
-    }
-
-    public Response(String text, String tts, boolean endSession) {
-        this.text.add(text);
+    public Response(List<String> text, String tts, List<ResponseButton> buttons, boolean endSession, ResponseCard card, List<Command> commands, AudioPlayer audioPlayer) {
+        this.text = text;
         this.tts = tts;
+        this.buttons = buttons;
         this.endSession = endSession;
-    }
-
-    public Response(String text, String tts, Command[] commands, AudioPlayer audioPlayer, boolean endSession) {
-        this.text.add(text);
-        this.tts = tts;
-        if (commands == null) {
-            this.commands = new ArrayList<>();
-        } else {
-            this.commands = List.of(commands);
-        }
-        this.endSession = endSession;
+        this.card = card;
+        this.commands = commands;
         this.audioPlayer = audioPlayer;
     }
 
-    public Response(String text, String tts, boolean endSession, List<ResponseButton> buttons) {
-        this(text, tts, endSession);
-
-        this.buttons = buttons;
-    }
-
-    public Response(List<String> text, boolean endSession) {
-        this.text = text;
-        this.endSession = endSession;
-    }
-
-    public Response(List<String> text, String tts, boolean endSession) {
-        this.text = text;
-        this.tts = tts;
-        this.endSession = endSession;
+    public Response(State state, boolean endSession) {
+        this(List.of(state.getText()), state.getTts(), state.getButtons(), endSession, null, state.getCommands(), state.getAudioPlayer());
     }
 }

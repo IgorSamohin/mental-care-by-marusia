@@ -44,4 +44,8 @@ public class AudioPlayer {
             this.playlist[i] = new PlayList(audioVkIds[i]);
         }
     }
+
+    public boolean isEmpty(){
+        return this.playlist == null || this.playlist.length == 0;
+    }
 }

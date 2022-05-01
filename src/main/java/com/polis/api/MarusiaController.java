@@ -1,15 +1,15 @@
 package com.polis.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.polis.api.model.MarusiaResponse;
 import com.polis.api.model.MarusiaRequest;
+import com.polis.api.storage.DataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @CrossOrigin(value = "https://skill-debugger.marusia.mail.ru")
@@ -26,5 +26,13 @@ public class MarusiaController {
     @ResponseBody
     public MarusiaResponse mainInput(@RequestBody MarusiaRequest request) {
         return service.handleRequest(request);
+    }
+
+    @Autowired
+    public DataProvider dataProvider;
+
+    @GetMapping("/serialize")
+    public String serialize() throws JsonProcessingException {
+        return new ObjectMapper().writeValueAsString(dataProvider.getStates());
     }
 }

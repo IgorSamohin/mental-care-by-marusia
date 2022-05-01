@@ -42,14 +42,7 @@ public class MarusiaService {
 
     //объединяем аргументы в ответ.
     private MarusiaResponse createResponse(State state, boolean endSession, Session session) {
-        MarusiaAnswer marusiaAnswer = state.getMarusiaAnswer();
-
-        Response response = new Response(
-                marusiaAnswer.text,
-                marusiaAnswer.tts,
-                endSession,
-                state.getButtons()
-        );
+        Response response = new Response(state, endSession);
 
         return new MarusiaResponse(response, session, config.version, new UserSession(state.getId()));
     }
