@@ -1,7 +1,7 @@
 package com.polis.api;
 
-import com.polis.api.model.MarusiaResponse;
 import com.polis.api.model.MarusiaRequest;
+import com.polis.api.model.MarusiaResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

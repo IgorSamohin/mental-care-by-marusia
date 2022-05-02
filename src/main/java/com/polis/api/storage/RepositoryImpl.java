@@ -1,26 +1,34 @@
 package com.polis.api.storage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Arrays;
 import java.util.Map;
 
 @Repository
 public class RepositoryImpl {
-    private final Map<Integer, State> states = Data.states;
-    private final State defaultState = new State();
+    private final DataProvider dataProvider;
+
+    @Autowired
+    public RepositoryImpl(DataProvider provider) {
+        this.dataProvider = provider;
+    }
+
+    private Map<Integer, State> getStates() {
+        return dataProvider.getStates();
+    }
 
     public State getState(int stateId) {
-        return states.get(stateId);
+        return getStates().get(stateId);
     }
 
     public State getNextState(int currentStateId, String userInput) {
 
         if (userInput.equals("on_interrupt")) {
-            return states.get(State.EXIT_STATE_ID);
+            return getStates().get(State.EXIT_STATE_ID);
         }
 
-        State currentState = states.get(currentStateId);
+        State currentState = getStates().get(currentStateId);
 
         int nextStateId = currentState.getNextStateId(userInput);
 
