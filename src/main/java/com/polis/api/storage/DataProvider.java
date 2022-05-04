@@ -45,5 +45,11 @@ public class DataProvider {
         states.put(10, stateFactory.getState(10));
         states.put(12, stateFactory.getState(12));
         states.put(13, stateFactory.getState(13));
+
+        states.put(14, stateFactory.getState(14));
+        states.put(15, stateFactory.getState(15));
+        states.put(16, stateFactory.getState(16));
+        states.put(17, stateFactory.getState(17));
+        states.put(18, stateFactory.getState(18));
     }
 }

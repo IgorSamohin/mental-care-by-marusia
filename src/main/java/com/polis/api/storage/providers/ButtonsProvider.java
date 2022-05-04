@@ -41,5 +41,10 @@ class ButtonsProvider {
         map.put(10, new ButtonsModel(ZoneButtons.DISTRACTION)); //помощь отвл
         map.put(12, new ButtonsModel(ZoneButtons.SEDATION));    //помощь успокоение
         map.put(13, new ButtonsModel(ZoneButtons.COMMON_HELP)); //помощь отвл + успокоение
+        map.put(14, new ButtonsModel(ZoneButtons.COMMON_HELP)); //помощь отвл + успокоение
+        map.put(15, new ButtonsModel(ZoneButtons.COMMON_HELP)); //помощь отвл + успокоение
+        map.put(16, new ButtonsModel(ZoneButtons.COMMON_HELP)); //помощь отвл + успокоение
+        map.put(17, new ButtonsModel(ZoneButtons.COMMON_HELP)); //помощь отвл + успокоение
+        map.put(18, new ButtonsModel(ZoneButtons.COMMON_HELP)); //помощь отвл + успокоение
     }
 }

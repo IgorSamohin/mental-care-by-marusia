@@ -40,5 +40,11 @@ class MarusiaAnswerProvider {
         map.put(10, new MarusiaAnswerModel(MarusiaAnswer.HELP_DISTRACTION_ANSWER, true));
         map.put(12, new MarusiaAnswerModel(MarusiaAnswer.HELP_SEDATION_ANSWER, true));
         map.put(13, new MarusiaAnswerModel(MarusiaAnswer.HELP_SEDATION_AND_DISTRACTION_ANSWER, true));
+
+        map.put(14, new MarusiaAnswerModel(MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER_START_GAME, false));
+        map.put(15, new MarusiaAnswerModel(MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER_GREATER_ONE_HUNDRED, false));
+        map.put(16, new MarusiaAnswerModel(MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER_LESS_ONE, false));
+        map.put(17, new MarusiaAnswerModel(MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER_NOT_NUMBER, false));
+        map.put(18, new MarusiaAnswerModel(MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER_END_GAME, false));
     }
 }

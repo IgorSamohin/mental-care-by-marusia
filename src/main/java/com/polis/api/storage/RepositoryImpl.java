@@ -1,5 +1,6 @@
 package com.polis.api.storage;
 
+import com.polis.api.storage.game.CountTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -8,10 +9,12 @@ import java.util.Map;
 @Repository
 public class RepositoryImpl {
     private final DataProvider dataProvider;
+    private final CountTaskService countTaskService;
 
     @Autowired
-    public RepositoryImpl(DataProvider provider) {
+    public RepositoryImpl(DataProvider provider, CountTaskService countTaskService) {
         this.dataProvider = provider;
+        this.countTaskService = countTaskService;
     }
 
     private Map<Integer, State> getStates() {
@@ -28,6 +31,10 @@ public class RepositoryImpl {
             return getStates().get(State.EXIT_STATE_ID);
         }
 
+        if (isCountNumberGameState(currentStateId)) {
+            return countTaskService.handleInput(userInput);
+        }
+
         State currentState = getStates().get(currentStateId);
 
         int nextStateId = currentState.getNextStateId(userInput);
@@ -39,5 +46,11 @@ public class RepositoryImpl {
 
 
         return getState(nextStateId);
+    }
+
+
+    private boolean isCountNumberGameState(int currentStateId) {
+        return currentStateId == 9 || currentStateId == 14 || currentStateId == 15 ||
+                currentStateId == 16 || currentStateId == 17 || currentStateId == 18;
     }
 }

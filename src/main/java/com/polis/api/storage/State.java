@@ -5,6 +5,7 @@ import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.audio.AudioPlayer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
@@ -20,7 +21,9 @@ public class State {
 
     @Getter
     private int id;
+    @Setter
     private String text;
+    @Setter
     private String tts;
     private String stubText;
     private String stubTts;
