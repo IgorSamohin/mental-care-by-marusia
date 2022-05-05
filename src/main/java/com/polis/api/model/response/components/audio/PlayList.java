@@ -22,7 +22,7 @@ public class PlayList {
     private AudioMeta meta;
 
     public PlayList(String audioVkId) {
-        this.stream = new AudioStream(audioVkId, AudioSource.VK, audioVkId);
+        this.stream = new AudioStream("-" + audioVkId, AudioSource.VK, audioVkId);
     }
 
     //we shall not use this!
