@@ -1,24 +1,34 @@
 package com.polis.api.storage.providers;
 
+import com.polis.api.storage.media.Media;
+
+import java.util.concurrent.ThreadLocalRandom;
+
 public class MediaProvider {
 
-    String getRandomMusic() {
-        return "";
+    public String getRandomMusic() {
+        return getRandomContent(Media.MUSIC.media);
     }
 
-    String getRandomSounds() {
-        return "";
+    public String getRandomSounds() {
+        return getRandomContent(Media.SOUNDS.media);
     }
 
-    String getRandomVideo() {
-        return "";
+    public String getRandomVideo() {
+        return getRandomContent(Media.VIDEO.media);
     }
 
-    String getRandomAdvice() {
-        return "";
+    public String getRandomAdvice() {
+        return getRandomContent(Media.ADVICE.media);
     }
 
-    String getRandomPicture() {
-        return "";
+    public String getRandomPicture() {
+        return getRandomContent(Media.PICTURES.media);
+    }
+
+    private String getRandomContent(String[] arr) {
+        int index = ThreadLocalRandom.current().nextInt(arr.length);
+
+        return arr[index];
     }
 }

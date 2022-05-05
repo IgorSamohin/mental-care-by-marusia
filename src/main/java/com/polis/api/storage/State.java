@@ -10,6 +10,7 @@ import org.springframework.lang.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @NoArgsConstructor
 public class State {
@@ -30,8 +31,7 @@ public class State {
     private List<ResponseButton> buttons;
     @Getter
     private List<Command> commands;
-    @Getter
-    private AudioPlayer audioPlayer;
+    private AudioPlayer[] audioPlayers;
     @Getter
     private boolean isRepeatable;
 
@@ -44,7 +44,7 @@ public class State {
             @Nullable Transition[] possibleTransitions,
             @Nullable ResponseButton[] buttons,
             @Nullable Command[] commands,
-            @Nullable AudioPlayer audioPlayer,
+            @Nullable AudioPlayer[] audioPlayer,
             boolean isRepeatable
     ) {
         this.id = id;
@@ -53,7 +53,7 @@ public class State {
         this.stubText = stubText == null ? text : stubText;
         this.stubTts = stubTts == null ? tts : stubTts;
         this.commands = commands == null ? new ArrayList<>() : List.of(commands);
-        this.audioPlayer = audioPlayer;
+        this.audioPlayers = audioPlayer;
         this.isRepeatable = isRepeatable;
         this.possibleTransitions = possibleTransitions == null ? null : Arrays.asList(possibleTransitions);
         this.buttons = buttons == null ? null : List.of(buttons);
@@ -64,7 +64,7 @@ public class State {
                  @Nullable Transition[] possibleTransitions,
                  @Nullable String[] buttons,
                  @Nullable Command[] commands,
-                 @Nullable AudioPlayer audioPlayer,
+                 @Nullable AudioPlayer[] audioPlayer,
                  boolean isRepeatable
     ) {
         this(id, marusiaAnswer.text, marusiaAnswer.tts, marusiaAnswer.stubText, marusiaAnswer.stubTts, possibleTransitions,
@@ -113,6 +113,17 @@ public class State {
     }
 
     private boolean hasProblems() {
-        return audioPlayer != null && audioPlayer.isEmpty();
+        return audioPlayers == null;
+    }
+
+    @Nullable
+    public AudioPlayer getAudioPlayer() {
+        if (audioPlayers == null) {
+            return null;
+        }
+
+        int index = ThreadLocalRandom.current().nextInt(audioPlayers.length);
+
+        return audioPlayers[index];
     }
 }

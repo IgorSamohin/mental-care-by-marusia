@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class StateFactory {
-    private final AudioPlayerProvider audioPlayerProvider;
+    private final AudioProvider audioProvider;
     private final ButtonsProvider buttonsProvider;
     private final MarusiaAnswerProvider marusiaAnswerProvider;
     private final TransitionsProvider transitionsProvider;
@@ -21,12 +21,12 @@ public class StateFactory {
 
     @Autowired
     private StateFactory(
-            AudioPlayerProvider audioPlayerProvider,
+            AudioProvider audioProvider,
             ButtonsProvider buttonsProvider,
             MarusiaAnswerProvider marusiaAnswerProvider,
             TransitionsProvider transitionsProvider,
             CommandsProvider commandsProvider) {
-        this.audioPlayerProvider = audioPlayerProvider;
+        this.audioProvider = audioProvider;
         this.buttonsProvider = buttonsProvider;
         this.marusiaAnswerProvider = marusiaAnswerProvider;
         this.transitionsProvider = transitionsProvider;
@@ -37,7 +37,7 @@ public class StateFactory {
         MarusiaAnswerModel answer = marusiaAnswerProvider.getAnswer(stateId);
         Transition[] transitions = transitionsProvider.getTransitions(stateId);
         ResponseButton[] buttons = buttonsProvider.getButtons(stateId);
-        AudioPlayer audioPlayer = audioPlayerProvider.getAudioPlayer(stateId);
+        AudioPlayer[] audioPlayer = audioProvider.getAudioPlayers(stateId);
         Command[] commands = commandsProvider.getCommands(stateId);
 
         if (answer.isRepeatable()) {

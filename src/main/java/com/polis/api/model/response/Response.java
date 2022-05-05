@@ -6,12 +6,10 @@ import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.audio.AudioPlayer;
 import com.polis.api.storage.State;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor

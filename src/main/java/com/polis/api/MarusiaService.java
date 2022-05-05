@@ -47,21 +47,6 @@ public class MarusiaService {
     private MarusiaResponse createResponse(State state, boolean endSession, Session session) {
         Response response = new Response(state, endSession);
 
-
-        if (state.getId() == 5) {
-            String[] media = Media.MUSIC.media;
-            int index = new Random().nextInt(media.length);
-
-            state.getAudioPlayer().setPlaylist(new PlayList[]{new PlayList(media[index])});
-        }
-// ПО идее это в многопотоке должно ломаться, т.к плеер у нас у состояний один и тот же
-        if (state.getId() == 4) {
-            String[] media = Media.SOUNDS.media;
-            int index = new Random().nextInt(media.length);
-
-            state.getAudioPlayer().setPlaylist(new PlayList[]{new PlayList(media[index])});
-        }
-
         return new MarusiaResponse(response, session, config.version, new UserSession(state.getId()));
     }
 }
