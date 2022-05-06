@@ -65,11 +65,11 @@ public class StateFactory {
         ResponseButton[] tmpButtons;
         if (buttons != null) {
             tmpButtons = new ResponseButton[buttons.length + 1];
-            System.arraycopy(buttons, 0, tmpButtons, 0, buttons.length);
+            System.arraycopy(buttons, 0, tmpButtons, 1, buttons.length);
         } else {
             tmpButtons = new ResponseButton[1];
         }
-        tmpButtons[tmpButtons.length - 1] = new ResponseButton(ZoneButtons.REPEAT.getRandomButton());
+        tmpButtons[0] = new ResponseButton(ZoneButtons.REPEAT.getRandomButton());
 
         return new Repeated(tmpTransitions, tmpButtons);
     }

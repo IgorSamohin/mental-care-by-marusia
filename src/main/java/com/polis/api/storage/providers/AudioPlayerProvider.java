@@ -26,7 +26,7 @@ class AudioPlayerProvider {
 
     @PostConstruct
     private void init() {
-        map.put(4, new AudioPlayer(new String[]{}));
-        map.put(5, new AudioPlayer(new String[]{}));
+        map.put(4, new AudioPlayer(new String[]{"2000512010_456239035", "2000512010_456239034", "2000512010_456239039"}));
+        map.put(5, new AudioPlayer(new String[]{"2000512010_456239038"}));
     }
 }

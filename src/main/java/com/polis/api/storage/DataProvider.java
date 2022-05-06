@@ -40,8 +40,8 @@ public class DataProvider {
         states.put(4, stateFactory.getState(4));
         states.put(5, stateFactory.getState(5));
         states.put(6, stateFactory.getState(6));
-        states.put(7, stateFactory.getState(7));
-        states.put(9, stateFactory.getState(9));
+//        states.put(7, stateFactory.getState(7));
+//        states.put(9, stateFactory.getState(9));
         states.put(10, stateFactory.getState(10));
         states.put(12, stateFactory.getState(12));
         states.put(13, stateFactory.getState(13));
