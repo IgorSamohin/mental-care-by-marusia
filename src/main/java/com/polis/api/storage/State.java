@@ -21,6 +21,7 @@ public class State {
 
     @Getter
     private int id;
+
     private String text;
     private String tts;
     private String stubText;
@@ -113,7 +114,7 @@ public class State {
     }
 
     private boolean hasProblems() {
-        return audioPlayers == null;
+        return audioPlayers == null && false;
     }
 
     @Nullable
@@ -125,5 +126,13 @@ public class State {
         int index = ThreadLocalRandom.current().nextInt(audioPlayers.length);
 
         return audioPlayers[index];
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setTts(String tts) {
+        this.tts = tts;
     }
 }

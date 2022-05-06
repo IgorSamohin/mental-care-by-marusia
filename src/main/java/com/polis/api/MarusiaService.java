@@ -5,20 +5,19 @@ import com.polis.api.model.MarusiaResponse;
 import com.polis.api.model.Session;
 import com.polis.api.model.request.UserSession;
 import com.polis.api.model.response.Response;
-import com.polis.api.model.response.components.audio.PlayList;
 import com.polis.api.storage.RepositoryImpl;
 import com.polis.api.storage.State;
-import com.polis.api.storage.media.Media;
+import com.polis.api.storage.providers.MediaProvider;
 import com.polis.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
-
 @Service
 public class MarusiaService {
+    @Autowired
+    private MediaProvider mediaProvider;
     private Logger logger = LoggerFactory.getLogger(MarusiaService.class);
 
     private final RepositoryImpl repository;
@@ -45,6 +44,25 @@ public class MarusiaService {
 
     //объединяем аргументы в ответ.
     private MarusiaResponse createResponse(State state, boolean endSession, Session session) {
+
+        if (state.getId() == 3) {
+            state.setText("Посмотрите это видео\n" + mediaProvider.getRandomVideo() + "\n");
+        }
+
+        if (state.getId() == 1) {
+            String advice = mediaProvider.getRandomAdvice();
+
+            state.setText(advice);
+            state.setTts(advice);
+        }
+
+        if (state.getId() == 6) {
+            String exercice = mediaProvider.getRandomBreathExercise();
+
+            state.setText(exercice);
+            state.setTts(exercice);
+        }
+
         Response response = new Response(state, endSession);
 
         return new MarusiaResponse(response, session, config.version, new UserSession(state.getId()));
