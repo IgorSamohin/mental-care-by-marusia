@@ -1,8 +1,12 @@
 package com.polis.api.storage;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.polis.api.model.response.ResponseButton;
 import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.audio.AudioPlayer;
+import com.polis.api.model.response.components.widgets.Card;
+import com.polis.api.model.response.components.widgets.Link;
+import com.polis.api.storage.model.VideoLinksModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -33,6 +37,8 @@ public class State {
     @Getter
     private AudioPlayer audioPlayer;
     @Getter
+    private VideoLinksModel videoLinks;
+    @Getter
     private boolean isRepeatable;
 
     public State(
@@ -45,6 +51,7 @@ public class State {
             @Nullable ResponseButton[] buttons,
             @Nullable Command[] commands,
             @Nullable AudioPlayer audioPlayer,
+            @Nullable VideoLinksModel videoLinksModel,
             boolean isRepeatable
     ) {
         this.id = id;
@@ -54,6 +61,7 @@ public class State {
         this.stubTts = stubTts == null ? tts : stubTts;
         this.commands = commands == null ? new ArrayList<>() : List.of(commands);
         this.audioPlayer = audioPlayer;
+        this.videoLinks = videoLinksModel;
         this.isRepeatable = isRepeatable;
         this.possibleTransitions = possibleTransitions == null ? null : Arrays.asList(possibleTransitions);
         this.buttons = buttons == null ? null : List.of(buttons);
@@ -65,11 +73,12 @@ public class State {
                  @Nullable String[] buttons,
                  @Nullable Command[] commands,
                  @Nullable AudioPlayer audioPlayer,
+                 @Nullable VideoLinksModel videoLinksModel,
                  boolean isRepeatable
     ) {
         this(id, marusiaAnswer.text, marusiaAnswer.tts, marusiaAnswer.stubText, marusiaAnswer.stubTts, possibleTransitions,
                 buttons == null ? null : (ResponseButton[]) Arrays.stream(buttons).map(ResponseButton::new).toArray(),
-                commands, audioPlayer, isRepeatable);
+                commands, audioPlayer, videoLinksModel, isRepeatable);
     }
 
     private int getNextStateId(String userInput, boolean isRandom) {
@@ -102,6 +111,10 @@ public class State {
         if (hasProblems()) {
             return stubText;
         }
+        if (videoLinks != null) {
+            Link link = (Link) videoLinks.getRandomVideoLink().getItem();
+            return text + link.getUrl();
+        }
         return text;
     }
 
@@ -114,5 +127,13 @@ public class State {
 
     private boolean hasProblems() {
         return audioPlayer != null && audioPlayer.isEmpty();
+    }
+
+    public Card getCard() {
+        if (videoLinks != null) {
+            return videoLinks.getRandomVideoLink();
+        }
+
+        return null;
     }
 }

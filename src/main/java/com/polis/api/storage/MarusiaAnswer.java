@@ -19,7 +19,7 @@ public enum MarusiaAnswer {
     //FIXME В колонке не мб видео
 //    YOGA_ANSWER("Смотрите, что я Вам нашла", "^Смотрите^, что я вам нашла")
     YOGA_ANSWER("К сожалению, эта функция сейчас недоступна", "К сожалению, эта функция сейчас недоступна."), // add more
-//    NUMBER_COUNT_TASK_ANSWER("Давайте поиграем!", "Давайте поиграем."),
+    //    NUMBER_COUNT_TASK_ANSWER("Давайте поиграем!", "Давайте поиграем."),
     NUMBER_COUNT_TASK_ANSWER("К сожалению, эта функция сейчас недоступна", "К сожалению, эта функция сейчас недоступна."),
 
     //Ветка с советом
@@ -54,7 +54,7 @@ public enum MarusiaAnswer {
     ),
 
     //FIXME В колонке не мб видео
-    VIDEO_ANSWER("Посмотрите это видео\n https://www.youtube.com/watch?v=q1NuROtXxso",//todo add more
+    VIDEO_ANSWER("Посмотрите это видео\n",//todo add more
             "Посмотрите это видео. Оно ^точно^ поможет отвлечься."),
     SOOTHING_SOUND_ANSWER("Включаю успокаивающие звуки", "Включаю успокаивающие звуки",//todo add more
             "Скоро я научусь включать вам звуки. Не могли бы Вы попросить включить звуки чирикающих птичек вне скилла?",
@@ -97,10 +97,7 @@ public enum MarusiaAnswer {
     public final String stubTts;
 
     MarusiaAnswer(String text, String tts) {
-        this.text = text;
-        this.tts = tts;
-        this.stubText = null;
-        this.stubTts = null;
+        this(text, tts, null, null);
     }
 
     MarusiaAnswer(String text, String tts, String stubText, String stubTts) {

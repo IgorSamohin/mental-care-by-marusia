@@ -8,6 +8,7 @@ import com.polis.api.storage.State;
 import com.polis.api.storage.Transition;
 import com.polis.api.storage.ZoneButtons;
 import com.polis.api.storage.model.MarusiaAnswerModel;
+import com.polis.api.storage.model.VideoLinksModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ public class StateFactory {
     private final MarusiaAnswerProvider marusiaAnswerProvider;
     private final TransitionsProvider transitionsProvider;
     private final CommandsProvider commandsProvider;
+    private final VideoProvider videoProvider;
 
     @Autowired
     private StateFactory(
@@ -25,12 +27,14 @@ public class StateFactory {
             ButtonsProvider buttonsProvider,
             MarusiaAnswerProvider marusiaAnswerProvider,
             TransitionsProvider transitionsProvider,
-            CommandsProvider commandsProvider) {
+            CommandsProvider commandsProvider,
+            VideoProvider videoProvider) {
         this.audioPlayerProvider = audioPlayerProvider;
         this.buttonsProvider = buttonsProvider;
         this.marusiaAnswerProvider = marusiaAnswerProvider;
         this.transitionsProvider = transitionsProvider;
         this.commandsProvider = commandsProvider;
+        this.videoProvider = videoProvider;
     }
 
     public State getState(int stateId) {
@@ -39,6 +43,7 @@ public class StateFactory {
         ResponseButton[] buttons = buttonsProvider.getButtons(stateId);
         AudioPlayer audioPlayer = audioPlayerProvider.getAudioPlayer(stateId);
         Command[] commands = commandsProvider.getCommands(stateId);
+        VideoLinksModel videoLinks = videoProvider.getVideoLinks(stateId);
 
         if (answer.isRepeatable()) {
             Repeated repeated = addRepeat(stateId, buttons, transitions);
@@ -46,7 +51,8 @@ public class StateFactory {
             buttons = repeated.buttons;
         }
 
-        return new State(stateId, answer.text(), answer.tts(), answer.stubText(), answer.stubTts(), transitions, buttons, commands, audioPlayer, answer.isRepeatable());
+        return new State(stateId, answer.text(), answer.tts(), answer.stubText(), answer.stubTts(), transitions,
+                buttons, commands, audioPlayer, videoLinks, answer.isRepeatable());
     }
 
     record Repeated(Transition[] transitions, ResponseButton[] buttons) {
