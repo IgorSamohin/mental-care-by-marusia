@@ -13,12 +13,12 @@ public class HttpHttpsConfig {
     @Value("${server.http.port:80}")
     private int httpPort;
 
-//    @Bean
-//    public ServletWebServerFactory servletContainer() {
-//        Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
-//        connector.setPort(httpPort);
-//        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
-//        tomcat.addAdditionalTomcatConnectors(connector);
-//        return tomcat;
-//    }
+    @Bean
+    public ServletWebServerFactory servletContainer() {
+        Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
+        connector.setPort(httpPort);
+        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
+        tomcat.addAdditionalTomcatConnectors(connector);
+        return tomcat;
+    }
 }
