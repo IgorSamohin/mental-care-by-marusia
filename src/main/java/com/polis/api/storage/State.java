@@ -1,10 +1,8 @@
 package com.polis.api.storage;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.polis.api.model.response.ResponseButton;
 import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.audio.AudioPlayer;
-import com.polis.api.model.response.components.widgets.Card;
 import com.polis.api.model.response.components.widgets.Link;
 import com.polis.api.storage.model.VideoLinksModel;
 import lombok.Getter;
@@ -112,7 +110,7 @@ public class State {
             return stubText;
         }
         if (videoLinks != null) {
-            Link link = (Link) videoLinks.getRandomVideoLink().getItem();
+            Link link = videoLinks.getRandomVideoLink();
             return text + link.getUrl();
         }
         return text;
@@ -129,7 +127,7 @@ public class State {
         return audioPlayer != null && audioPlayer.isEmpty();
     }
 
-    public Card getCard() {
+    public Link getLink() {
         if (videoLinks != null) {
             return videoLinks.getRandomVideoLink();
         }

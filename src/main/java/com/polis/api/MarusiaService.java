@@ -28,6 +28,11 @@ public class MarusiaService {
     }
 
     public MarusiaResponse handleRequest(MarusiaRequest request) {
+        if (request.request.type.equals("DeepLink")) {
+            State state = repository.getStartState();
+            return createResponse(state, false, request.session);
+        }
+
         int prevStateId = request.state.session.prevStateId;
 
         //приходит прошлый стейт и команда

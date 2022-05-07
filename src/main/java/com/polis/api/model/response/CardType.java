@@ -6,7 +6,10 @@ public enum CardType {
     @JsonProperty("BigImage")
     BIG_IMAGE("BigImage"),
     @JsonProperty("ItemsList")
-    ITEMS_LIST("ItemsList");
+    ITEMS_LIST("ItemsList"),
+    @JsonProperty("Link")
+    LINK("Link")
+    ;
 
     private String type;
 

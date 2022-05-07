@@ -28,9 +28,9 @@ public class VideoProvider {
     private void init() {
         map.put(3, new VideoLinksModel(
                         new Link[]{
-                                new Link("https://www.youtube.com/watch?v=q1NuROtXxso", "Птицы в дикой природе",
+                                new Link("https://vk.cc/cdmJDF", "Птицы в дикой природе",
                                         "Расслабьтесь, наблюдая за птицами", ""),
-                                new Link("https://www.youtube.com/watch?v=CHSnz0bCaUk", "Аляска",
+                                new Link("https://vk.cc/cdmJEM", "Аляска",
                                         "Расслабьтесь, наблюдая за природой", "")
                         }
 

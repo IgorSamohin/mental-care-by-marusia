@@ -1,18 +1,18 @@
 package com.polis.api.model.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.audio.AudioPlayer;
-import com.polis.api.model.response.components.widgets.Card;
+import com.polis.api.model.response.components.widgets.Link;
 import com.polis.api.storage.State;
-import lombok.AllArgsConstructor;
+import com.polis.api.storage.model.VideoLinksModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -30,6 +30,7 @@ public class Response {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private ResponseCard card;
 
+    @JsonIgnore
     private List<Command> commands;
 
     @JsonProperty("audio_player")
@@ -47,5 +48,9 @@ public class Response {
 
     public Response(State state, boolean endSession) {
         this(List.of(state.getText()), state.getTts(), state.getButtons(), endSession, null, state.getCommands(), state.getAudioPlayer());
+        Link link = state.getLink();
+        if (link != null) {
+            this.card = new ResponseCard(link);
+        }
     }
 }

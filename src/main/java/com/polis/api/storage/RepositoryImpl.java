@@ -40,4 +40,8 @@ public class RepositoryImpl {
 
         return getState(nextStateId);
     }
+
+    public State getStartState() {
+        return getState(State.START_STATE_ID);
+    }
 }

@@ -7,7 +7,6 @@ import lombok.Getter;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 @Getter
 public class Link extends WidgetElement {
-    private String type = "Link";
     public String url;
     public String title;
     public String text;
