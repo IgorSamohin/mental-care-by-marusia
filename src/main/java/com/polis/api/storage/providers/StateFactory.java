@@ -57,7 +57,7 @@ public class StateFactory {
             buttons = repeated.buttons;
         }
 
-        return new State(stateId, new Answer(answer.text(), answer.tts(), answer.isRepeatable()), transitions, buttons, commands, audio, breathExerciseModel, adviceModel);
+        return new State(stateId, Answer.from(answer.text(), answer.tts(), answer.isRepeatable()), transitions, buttons, commands, audio, breathExerciseModel, adviceModel);
     }
 
     record Repeated(Transition[] transitions, ResponseButton[] buttons) {
