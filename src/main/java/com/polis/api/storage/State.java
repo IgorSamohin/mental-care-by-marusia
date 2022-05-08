@@ -3,6 +3,7 @@ package com.polis.api.storage;
 import com.polis.api.model.response.ResponseButton;
 import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.audio.AudioPlayer;
+import com.polis.api.storage.providers.audio.Audio;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -10,7 +11,6 @@ import org.springframework.lang.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 @NoArgsConstructor
 public class State {
@@ -32,7 +32,7 @@ public class State {
     private List<ResponseButton> buttons;
     @Getter
     private List<Command> commands;
-    private AudioPlayer[] audioPlayers;
+    private Audio audio;
     @Getter
     private boolean isRepeatable;
 
@@ -45,7 +45,7 @@ public class State {
             @Nullable Transition[] possibleTransitions,
             @Nullable ResponseButton[] buttons,
             @Nullable Command[] commands,
-            @Nullable AudioPlayer[] audioPlayer,
+            @Nullable Audio audio,
             boolean isRepeatable
     ) {
         this.id = id;
@@ -54,7 +54,7 @@ public class State {
         this.stubText = stubText == null ? text : stubText;
         this.stubTts = stubTts == null ? tts : stubTts;
         this.commands = commands == null ? new ArrayList<>() : List.of(commands);
-        this.audioPlayers = audioPlayer;
+        this.audio = audio;
         this.isRepeatable = isRepeatable;
         this.possibleTransitions = possibleTransitions == null ? null : Arrays.asList(possibleTransitions);
         this.buttons = buttons == null ? null : List.of(buttons);
@@ -65,12 +65,12 @@ public class State {
                  @Nullable Transition[] possibleTransitions,
                  @Nullable String[] buttons,
                  @Nullable Command[] commands,
-                 @Nullable AudioPlayer[] audioPlayer,
+                 @Nullable Audio audio,
                  boolean isRepeatable
     ) {
         this(id, marusiaAnswer.text, marusiaAnswer.tts, marusiaAnswer.stubText, marusiaAnswer.stubTts, possibleTransitions,
                 buttons == null ? null : (ResponseButton[]) Arrays.stream(buttons).map(ResponseButton::new).toArray(),
-                commands, audioPlayer, isRepeatable);
+                commands, audio, isRepeatable);
     }
 
     private int getNextStateId(String userInput, boolean isRandom) {
@@ -114,18 +114,16 @@ public class State {
     }
 
     private boolean hasProblems() {
-        return audioPlayers == null && false;
+        return audio == null && false;
     }
 
     @Nullable
     public AudioPlayer getAudioPlayer() {
-        if (audioPlayers == null) {
+        if (audio == null) {
             return null;
         }
 
-        int index = ThreadLocalRandom.current().nextInt(audioPlayers.length);
-
-        return audioPlayers[index];
+        return audio.getAudioPlayer();
     }
 
     public void setText(String text) {

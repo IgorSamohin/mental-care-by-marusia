@@ -2,12 +2,12 @@ package com.polis.api.storage.providers;
 
 import com.polis.api.model.response.ResponseButton;
 import com.polis.api.model.response.components.Command;
-import com.polis.api.model.response.components.audio.AudioPlayer;
 import com.polis.api.storage.MarusiaCommand;
 import com.polis.api.storage.State;
 import com.polis.api.storage.Transition;
 import com.polis.api.storage.ZoneButtons;
 import com.polis.api.storage.model.MarusiaAnswerModel;
+import com.polis.api.storage.providers.audio.Audio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +37,7 @@ public class StateFactory {
         MarusiaAnswerModel answer = marusiaAnswerProvider.getAnswer(stateId);
         Transition[] transitions = transitionsProvider.getTransitions(stateId);
         ResponseButton[] buttons = buttonsProvider.getButtons(stateId);
-        AudioPlayer[] audioPlayer = audioProvider.getAudioPlayers(stateId);
+        Audio audio = audioProvider.getAudio(stateId);
         Command[] commands = commandsProvider.getCommands(stateId);
 
         if (answer.isRepeatable()) {
@@ -46,7 +46,7 @@ public class StateFactory {
             buttons = repeated.buttons;
         }
 
-        return new State(stateId, answer.text(), answer.tts(), answer.stubText(), answer.stubTts(), transitions, buttons, commands, audioPlayer, answer.isRepeatable());
+        return new State(stateId, answer.text(), answer.tts(), answer.stubText(), answer.stubTts(), transitions, buttons, commands, audio, answer.isRepeatable());
     }
 
     record Repeated(Transition[] transitions, ResponseButton[] buttons) {

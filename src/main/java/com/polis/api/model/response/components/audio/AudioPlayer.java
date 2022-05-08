@@ -45,7 +45,14 @@ public class AudioPlayer {
         }
     }
 
-    public boolean isEmpty(){
+    public AudioPlayer(PlayList[] playlist) {
+        this.playlist = playlist;
+
+        this.seekSecond = 0;
+        this.seekTrack = 0;
+    }
+
+    public boolean isEmpty() {
         return this.playlist == null || this.playlist.length == 0;
     }
 }
