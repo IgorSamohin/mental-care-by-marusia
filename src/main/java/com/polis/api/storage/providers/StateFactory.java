@@ -6,7 +6,10 @@ import com.polis.api.storage.MarusiaCommand;
 import com.polis.api.storage.State;
 import com.polis.api.storage.Transition;
 import com.polis.api.storage.ZoneButtons;
+import com.polis.api.storage.model.AdviceModel;
+import com.polis.api.storage.model.Answer;
 import com.polis.api.storage.model.AudioModel;
+import com.polis.api.storage.model.BreathExerciseModel;
 import com.polis.api.storage.model.MarusiaAnswerModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,15 +21,21 @@ public class StateFactory {
     private final MarusiaAnswerProvider marusiaAnswerProvider;
     private final TransitionsProvider transitionsProvider;
     private final CommandsProvider commandsProvider;
+    private final BreathExerciseProvider breathExerciseProvider;
+    private final AdviceProvider adviceProvider;
 
     @Autowired
     private StateFactory(
             AudioProvider audioProvider,
+            BreathExerciseProvider breathExerciseProvider,
+            AdviceProvider adviceProvider,
             ButtonsProvider buttonsProvider,
             MarusiaAnswerProvider marusiaAnswerProvider,
             TransitionsProvider transitionsProvider,
             CommandsProvider commandsProvider) {
         this.audioProvider = audioProvider;
+        this.breathExerciseProvider = breathExerciseProvider;
+        this.adviceProvider = adviceProvider;
         this.buttonsProvider = buttonsProvider;
         this.marusiaAnswerProvider = marusiaAnswerProvider;
         this.transitionsProvider = transitionsProvider;
@@ -39,6 +48,8 @@ public class StateFactory {
         ResponseButton[] buttons = buttonsProvider.getButtons(stateId);
         AudioModel audio = audioProvider.getAudio(stateId);
         Command[] commands = commandsProvider.getCommands(stateId);
+        BreathExerciseModel breathExerciseModel = breathExerciseProvider.getBreathExerciseModel(stateId);
+        AdviceModel adviceModel = adviceProvider.getAdviceModel(stateId);
 
         if (answer.isRepeatable()) {
             Repeated repeated = addRepeat(stateId, buttons, transitions);
@@ -46,7 +57,7 @@ public class StateFactory {
             buttons = repeated.buttons;
         }
 
-        return new State(stateId, answer.text(), answer.tts(), answer.stubText(), answer.stubTts(), transitions, buttons, commands, audio, answer.isRepeatable());
+        return new State(stateId, new Answer(answer.text(), answer.tts(), answer.isRepeatable()), transitions, buttons, commands, audio, breathExerciseModel, adviceModel);
     }
 
     record Repeated(Transition[] transitions, ResponseButton[] buttons) {

@@ -44,25 +44,6 @@ public class MarusiaService {
 
     //объединяем аргументы в ответ.
     private MarusiaResponse createResponse(State state, boolean endSession, Session session) {
-
-        if (state.getId() == 3) {
-            state.setText("Посмотрите это видео\n" + mediaProvider.getRandomVideo() + "\n");
-        }
-
-        if (state.getId() == 1) {
-            String advice = mediaProvider.getRandomAdvice();
-
-            state.setText(advice);
-            state.setTts(advice);
-        }
-
-        if (state.getId() == 6) {
-            String exercice = mediaProvider.getRandomBreathExercise();
-
-            state.setText(exercice);
-            state.setTts(exercice);
-        }
-
         Response response = new Response(state, endSession);
 
         return new MarusiaResponse(response, session, config.version, new UserSession(state.getId()));

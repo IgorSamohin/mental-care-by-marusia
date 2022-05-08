@@ -43,6 +43,6 @@ public class Response {
     }
 
     public Response(State state, boolean endSession) {
-        this(List.of(state.getText()), state.getTts(), state.getButtons(), endSession, null, state.getCommands(), state.getAudioPlayer());
+        this(List.of(state.getAnswer().text()), state.getAnswer().tts(), state.getButtons(), endSession, null, state.getCommands(), state.getAudioPlayer());
     }
 }

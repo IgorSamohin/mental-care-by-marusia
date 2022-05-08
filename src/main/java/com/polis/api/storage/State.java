@@ -3,7 +3,10 @@ package com.polis.api.storage;
 import com.polis.api.model.response.ResponseButton;
 import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.audio.AudioPlayer;
+import com.polis.api.storage.model.AdviceModel;
+import com.polis.api.storage.model.Answer;
 import com.polis.api.storage.model.AudioModel;
+import com.polis.api.storage.model.BreathExerciseModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -22,10 +25,7 @@ public class State {
     @Getter
     private int id;
 
-    private String text;
-    private String tts;
-    private String stubText;
-    private String stubTts;
+    private Answer answer;
     @Getter
     private List<Transition> possibleTransitions;
     @Getter
@@ -33,44 +33,27 @@ public class State {
     @Getter
     private List<Command> commands;
     private AudioModel audio;
-    @Getter
-    private boolean isRepeatable;
+    private BreathExerciseModel breathExerciseModel;
+    private AdviceModel adviceModel;
 
     public State(
             int id,
-            String text,
-            String tts,
-            String stubText,
-            String stubTts,
+            Answer answer,
             @Nullable Transition[] possibleTransitions,
             @Nullable ResponseButton[] buttons,
             @Nullable Command[] commands,
             @Nullable AudioModel audio,
-            boolean isRepeatable
+            @Nullable BreathExerciseModel breathExerciseModel,
+            @Nullable AdviceModel adviceModel
     ) {
         this.id = id;
-        this.text = text;
-        this.tts = tts;
-        this.stubText = stubText == null ? text : stubText;
-        this.stubTts = stubTts == null ? tts : stubTts;
+        this.answer = answer;
         this.commands = commands == null ? new ArrayList<>() : List.of(commands);
         this.audio = audio;
-        this.isRepeatable = isRepeatable;
+        this.breathExerciseModel = breathExerciseModel;
+        this.adviceModel = adviceModel;
         this.possibleTransitions = possibleTransitions == null ? null : Arrays.asList(possibleTransitions);
         this.buttons = buttons == null ? null : List.of(buttons);
-    }
-
-    public State(int id,
-                 MarusiaAnswer marusiaAnswer,
-                 @Nullable Transition[] possibleTransitions,
-                 @Nullable String[] buttons,
-                 @Nullable Command[] commands,
-                 @Nullable AudioModel audio,
-                 boolean isRepeatable
-    ) {
-        this(id, marusiaAnswer.text, marusiaAnswer.tts, marusiaAnswer.stubText, marusiaAnswer.stubTts, possibleTransitions,
-                buttons == null ? null : (ResponseButton[]) Arrays.stream(buttons).map(ResponseButton::new).toArray(),
-                commands, audio, isRepeatable);
     }
 
     private int getNextStateId(String userInput, boolean isRandom) {
@@ -99,23 +82,16 @@ public class State {
         return getNextStateId(userInput, true);
     }
 
-    public String getText() {
-        if (hasProblems()) {
-            return stubText;
+    public Answer getAnswer() {
+        if (breathExerciseModel != null) {
+            return breathExerciseModel.getRandomAdvice();
         }
-        return text;
-    }
 
-    public String getTts() {
-        if (hasProblems()) {
-            return stubTts;
+        if (adviceModel != null) {
+            return adviceModel.getRandomAdvice();
         }
-        return tts;
-    }
 
-    //FIXME
-    private boolean hasProblems() {
-        return audio == null && false;
+        return answer;
     }
 
     @Nullable
@@ -125,13 +101,5 @@ public class State {
         }
 
         return audio.getAudioPlayer();
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setTts(String tts) {
-        this.tts = tts;
     }
 }
