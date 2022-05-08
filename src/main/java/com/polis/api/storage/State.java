@@ -3,7 +3,7 @@ package com.polis.api.storage;
 import com.polis.api.model.response.ResponseButton;
 import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.audio.AudioPlayer;
-import com.polis.api.storage.providers.audio.Audio;
+import com.polis.api.storage.model.AudioModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -32,7 +32,7 @@ public class State {
     private List<ResponseButton> buttons;
     @Getter
     private List<Command> commands;
-    private Audio audio;
+    private AudioModel audio;
     @Getter
     private boolean isRepeatable;
 
@@ -45,7 +45,7 @@ public class State {
             @Nullable Transition[] possibleTransitions,
             @Nullable ResponseButton[] buttons,
             @Nullable Command[] commands,
-            @Nullable Audio audio,
+            @Nullable AudioModel audio,
             boolean isRepeatable
     ) {
         this.id = id;
@@ -65,7 +65,7 @@ public class State {
                  @Nullable Transition[] possibleTransitions,
                  @Nullable String[] buttons,
                  @Nullable Command[] commands,
-                 @Nullable Audio audio,
+                 @Nullable AudioModel audio,
                  boolean isRepeatable
     ) {
         this(id, marusiaAnswer.text, marusiaAnswer.tts, marusiaAnswer.stubText, marusiaAnswer.stubTts, possibleTransitions,
@@ -113,6 +113,7 @@ public class State {
         return tts;
     }
 
+    //FIXME
     private boolean hasProblems() {
         return audio == null && false;
     }
