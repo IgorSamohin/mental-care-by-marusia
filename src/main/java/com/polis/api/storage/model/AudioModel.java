@@ -4,7 +4,6 @@ import com.polis.api.model.response.components.audio.AudioPlayer;
 import com.polis.api.model.response.components.audio.PlayList;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -22,19 +21,31 @@ public class AudioModel {
         return new AudioPlayer(randomPlayList);
     }
 
-    private PlayList[] getRandomPlayListWithOneAudio() {
-        int index = ThreadLocalRandom.current().nextInt(playList.size());
+    private PlayList[] getRandomPlaylist() {
+        PlayList[] playListArr = new PlayList[PLAYLIST_SIZE];
 
-        return new PlayList[]{playList.get(index)};
+        List<Integer> indexes = getListOfRandomIndexes();
+
+        for (int i = 0; i < indexes.size(); i++) {
+            playListArr[i] = playList.get(i);
+        }
+
+        return playListArr;
     }
 
-    private PlayList[] getRandomPlaylist() {
-        List<PlayList> list = new ArrayList<>(this.playList);
+    private List<Integer> getListOfRandomIndexes() {
+        List<Integer> indexes = new ArrayList<>();
 
-        Collections.shuffle(list);
+        int counter = 0;
+        while (counter < PLAYLIST_SIZE) {
+            int index = ThreadLocalRandom.current().nextInt(AudioModel.PLAYLIST_SIZE);
 
-        List<PlayList> sublist = list.subList(0, PLAYLIST_SIZE);
+            if (!indexes.contains(index)) {
+                indexes.add(index);
+                counter++;
+            }
+        }
 
-        return sublist.toArray(new PlayList[PLAYLIST_SIZE]);
+        return indexes;
     }
 }
