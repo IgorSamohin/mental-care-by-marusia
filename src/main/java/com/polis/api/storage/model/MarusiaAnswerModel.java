@@ -15,4 +15,8 @@ public record MarusiaAnswerModel(String text, String tts, String stubText, Strin
     public MarusiaAnswerModel(MarusiaAnswer marusiaAnswer, boolean isRepeatable) {
         this(marusiaAnswer.text, marusiaAnswer.tts, marusiaAnswer.stubText, marusiaAnswer.stubTts, isRepeatable);
     }
+
+    public Answer getAnswer() {
+        return new Answer(text, tts, isRepeatable);
+    }
 }

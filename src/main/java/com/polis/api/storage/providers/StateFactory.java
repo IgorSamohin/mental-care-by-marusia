@@ -7,7 +7,6 @@ import com.polis.api.storage.State;
 import com.polis.api.storage.Transition;
 import com.polis.api.storage.ZoneButtons;
 import com.polis.api.storage.model.AdviceModel;
-import com.polis.api.storage.model.Answer;
 import com.polis.api.storage.model.AudioModel;
 import com.polis.api.storage.model.BreathExerciseModel;
 import com.polis.api.storage.model.MarusiaAnswerModel;
@@ -43,7 +42,7 @@ public class StateFactory {
     }
 
     public State getState(int stateId) {
-        MarusiaAnswerModel answer = marusiaAnswerProvider.getAnswer(stateId);
+        MarusiaAnswerModel marusiaAnswer = marusiaAnswerProvider.getAnswer(stateId);
         Transition[] transitions = transitionsProvider.getTransitions(stateId);
         ResponseButton[] buttons = buttonsProvider.getButtons(stateId);
         AudioModel audio = audioProvider.getAudio(stateId);
@@ -51,13 +50,13 @@ public class StateFactory {
         BreathExerciseModel breathExerciseModel = breathExerciseProvider.getBreathExerciseModel(stateId);
         AdviceModel adviceModel = adviceProvider.getAdviceModel(stateId);
 
-        if (answer.isRepeatable()) {
+        if (marusiaAnswer.isRepeatable()) {
             Repeated repeated = addRepeat(stateId, buttons, transitions);
             transitions = repeated.transitions();
             buttons = repeated.buttons;
         }
 
-        return new State(stateId, Answer.from(answer.text(), answer.tts(), answer.isRepeatable()), transitions, buttons, commands, audio, breathExerciseModel, adviceModel);
+        return new State(stateId, marusiaAnswer.getAnswer(), transitions, buttons, commands, audio, breathExerciseModel, adviceModel);
     }
 
     record Repeated(Transition[] transitions, ResponseButton[] buttons) {
