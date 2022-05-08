@@ -27,8 +27,11 @@ public class AudioModel {
         List<Integer> indexes = getListOfRandomIndexes();
 
         for (int i = 0; i < indexes.size(); i++) {
-            playListArr[i] = playList.get(i);
+            int index = indexes.get(i);
+
+            playListArr[i] = playList.get(index);
         }
+
 
         return playListArr;
     }
@@ -38,7 +41,7 @@ public class AudioModel {
 
         int counter = 0;
         while (counter < PLAYLIST_SIZE) {
-            int index = ThreadLocalRandom.current().nextInt(AudioModel.PLAYLIST_SIZE);
+            int index = ThreadLocalRandom.current().nextInt(playList.size());
 
             if (!indexes.contains(index)) {
                 indexes.add(index);
