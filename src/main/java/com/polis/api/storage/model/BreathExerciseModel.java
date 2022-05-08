@@ -9,7 +9,7 @@ public class BreathExerciseModel {
     private final List<Answer> exercises;
 
     public BreathExerciseModel(Answer[] exercises) {
-        this.exercises = Arrays.stream(exercises).toList();
+        this.exercises = Arrays.asList(exercises);
     }
 
 

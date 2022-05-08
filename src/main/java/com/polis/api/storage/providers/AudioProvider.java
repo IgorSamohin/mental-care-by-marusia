@@ -2,7 +2,6 @@ package com.polis.api.storage.providers;
 
 import com.polis.api.storage.model.AudioModel;
 import com.polis.api.storage.providers.audio.PlayListProvider;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -10,11 +9,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@RequiredArgsConstructor
 class AudioProvider {
     private final Map<Integer, AudioModel> map = new HashMap<>();
     private final PlayListProvider musicPlaylistProvider;
     private final PlayListProvider soundPlaylistProvider;
+
+    public AudioProvider(PlayListProvider musicPlaylistProvider, PlayListProvider soundPlaylistProvider) {
+        this.musicPlaylistProvider = musicPlaylistProvider;
+        this.soundPlaylistProvider = soundPlaylistProvider;
+    }
 
     public AudioModel getAudio(int stateId) {
         return map.get(stateId);

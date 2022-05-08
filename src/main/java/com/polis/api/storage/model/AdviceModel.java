@@ -8,7 +8,7 @@ public class AdviceModel {
     private final List<Answer> advices;
 
     public AdviceModel(Answer[] advices) {
-        this.advices = Arrays.stream(advices).toList();
+        this.advices = Arrays.asList(advices);
     }
 
     public Answer getRandomAdvice() {
