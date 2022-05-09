@@ -14,7 +14,7 @@ public class VideoProvider {
     private final Map<Integer, VideoLinksModel> map = new HashMap<>();
 
     /**
-     * Возвращает аудио плеер для состояния с заданным id или null, если плеера нет.
+     * Возвращает видео плеер для состояния с заданным id или null, если плеера нет.
      */
     public VideoLinksModel getVideoLinks(int stateId) {
         return map.get(stateId);

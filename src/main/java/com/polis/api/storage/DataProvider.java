@@ -16,8 +16,8 @@ public class DataProvider {
     private final StateFactory stateFactory;
 
     @Autowired
-    public DataProvider(StateFactory stateFactory) {
-        this.configuration = null;
+    public DataProvider(PropertiesConfiguration configuration, StateFactory stateFactory) {
+        this.configuration = configuration;
         this.stateFactory = stateFactory;
     }
 
