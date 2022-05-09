@@ -6,6 +6,7 @@ import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.audio.AudioPlayer;
 import com.polis.api.storage.State;
+import com.polis.api.storage.model.Answer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,6 +44,14 @@ public class Response {
     }
 
     public Response(State state, boolean endSession) {
-        this(List.of(state.getAnswer().text()), state.getAnswer().tts(), state.getButtons(), endSession, null, state.getCommands(), state.getAudioPlayer());
+        Answer answer = state.getAnswer();
+
+        this.text = List.of(answer.text());
+        this.tts = answer.tts();
+        this.buttons = state.getButtons();
+        this.endSession = endSession;
+        this.card = null;
+        this.commands = state.getCommands();
+        this.audioPlayer = state.getAudioPlayer();
     }
 }
