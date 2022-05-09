@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.audio.AudioPlayer;
+import com.polis.api.model.response.components.widgets.Link;
 import com.polis.api.storage.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,5 +45,9 @@ public class Response {
 
     public Response(State state, boolean endSession) {
         this(List.of(state.getAnswer().text()), state.getAnswer().tts(), state.getButtons(), endSession, null, state.getCommands(), state.getAudioPlayer());
+        Link link = state.getLink();
+        if (link != null) {
+            this.card = new ResponseCard(link);
+        }
     }
 }

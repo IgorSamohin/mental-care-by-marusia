@@ -6,6 +6,7 @@ import com.polis.api.storage.MarusiaCommand;
 import com.polis.api.storage.State;
 import com.polis.api.storage.Transition;
 import com.polis.api.storage.ZoneButtons;
+import com.polis.api.storage.model.VideoLinksModel;
 import com.polis.api.storage.model.AdviceModel;
 import com.polis.api.storage.model.Answer;
 import com.polis.api.storage.model.AudioModel;
@@ -20,6 +21,7 @@ public class StateFactory {
     private final MarusiaAnswerProvider marusiaAnswerProvider;
     private final TransitionsProvider transitionsProvider;
     private final CommandsProvider commandsProvider;
+    private final VideoProvider videoProvider;
     private final BreathExerciseProvider breathExerciseProvider;
     private final AdviceProvider adviceProvider;
 
@@ -31,7 +33,8 @@ public class StateFactory {
             ButtonsProvider buttonsProvider,
             MarusiaAnswerProvider marusiaAnswerProvider,
             TransitionsProvider transitionsProvider,
-            CommandsProvider commandsProvider) {
+            CommandsProvider commandsProvider,
+            VideoProvider videoProvider) {
         this.audioProvider = audioProvider;
         this.breathExerciseProvider = breathExerciseProvider;
         this.adviceProvider = adviceProvider;
@@ -39,6 +42,7 @@ public class StateFactory {
         this.marusiaAnswerProvider = marusiaAnswerProvider;
         this.transitionsProvider = transitionsProvider;
         this.commandsProvider = commandsProvider;
+        this.videoProvider = videoProvider;
     }
 
     public State getState(int stateId) {
@@ -49,6 +53,7 @@ public class StateFactory {
         Command[] commands = commandsProvider.getCommands(stateId);
         BreathExerciseModel breathExerciseModel = breathExerciseProvider.getBreathExerciseModel(stateId);
         AdviceModel adviceModel = adviceProvider.getAdviceModel(stateId);
+        VideoLinksModel videoLinks = videoProvider.getVideoLinks(stateId);
 
         if (marusiaAnswer.isRepeatable()) {
             Repeated repeated = addRepeat(stateId, buttons, transitions);
@@ -56,7 +61,8 @@ public class StateFactory {
             buttons = repeated.buttons;
         }
 
-        return new State(stateId, marusiaAnswer, transitions, buttons, commands, audio, breathExerciseModel, adviceModel);
+        return new State(stateId, marusiaAnswer, transitions, buttons, commands, audio, breathExerciseModel,
+                adviceModel, videoLinks);
     }
 
     record Repeated(Transition[] transitions, ResponseButton[] buttons) {
@@ -75,11 +81,11 @@ public class StateFactory {
         ResponseButton[] tmpButtons;
         if (buttons != null) {
             tmpButtons = new ResponseButton[buttons.length + 1];
-            System.arraycopy(buttons, 0, tmpButtons, 0, buttons.length);
+            System.arraycopy(buttons, 0, tmpButtons, 1, buttons.length);
         } else {
             tmpButtons = new ResponseButton[1];
         }
-        tmpButtons[tmpButtons.length - 1] = new ResponseButton(ZoneButtons.REPEAT.getRandomButton());
+        tmpButtons[0] = new ResponseButton(ZoneButtons.REPEAT.getRandomButton());
 
         return new Repeated(tmpTransitions, tmpButtons);
     }

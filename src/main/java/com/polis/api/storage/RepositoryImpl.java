@@ -30,7 +30,7 @@ public class RepositoryImpl {
 
         State currentState = getStates().get(currentStateId);
 
-        int nextStateId = currentState.getNextStateId(userInput);
+        int nextStateId = currentState.getRandomNextStateId(userInput);
 
         //не нашли команду, поэтому ошибка
         if (nextStateId == State.ERROR_STATE_ID) {
@@ -39,5 +39,9 @@ public class RepositoryImpl {
 
 
         return getState(nextStateId);
+    }
+
+    public State getStartState() {
+        return getState(State.START_STATE_ID);
     }
 }
