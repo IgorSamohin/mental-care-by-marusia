@@ -84,7 +84,7 @@ public enum MarusiaAnswer {
     ),
     HOME_ANSWER("Рада была Вам помочь. Хотите что-то еще?", "Рада была вам помочь. Хотите что-то еще?"),
 
-    MEGA_REQUEST("", "");
+    ;
 
     @JsonProperty("text")
     public final String text;
