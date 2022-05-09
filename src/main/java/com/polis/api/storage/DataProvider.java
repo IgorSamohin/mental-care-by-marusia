@@ -12,12 +12,10 @@ import java.util.Map;
 
 @Component
 public class DataProvider {
-    private final PropertiesConfiguration configuration;
     private final StateFactory stateFactory;
 
     @Autowired
-    public DataProvider(PropertiesConfiguration configuration, StateFactory stateFactory) {
-        this.configuration = configuration;
+    public DataProvider(StateFactory stateFactory) {
         this.stateFactory = stateFactory;
     }
 

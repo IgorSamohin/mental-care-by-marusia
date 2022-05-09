@@ -34,7 +34,6 @@ public class State {
     private List<ResponseButton> buttons;
     @Getter
     private List<Command> commands;
-    @Getter
     private AudioPlayer audioPlayer;
     @Getter
     private VideoLinksModel videoLinks;
@@ -53,8 +52,7 @@ public class State {
             @Nullable AudioModel audio,
             @Nullable BreathExerciseModel breathExerciseModel,
             @Nullable AdviceModel adviceModel,
-            @Nullable VideoLinksModel videoLinksModel,
-            boolean isRepeatable
+            @Nullable VideoLinksModel videoLinksModel
     ) {
         this.id = id;
         this.answer = answer;
@@ -63,7 +61,6 @@ public class State {
         this.breathExerciseModel = breathExerciseModel;
         this.adviceModel = adviceModel;
         this.videoLinks = videoLinksModel;
-        this.isRepeatable = isRepeatable;
         this.possibleTransitions = possibleTransitions == null ? null : Arrays.asList(possibleTransitions);
         this.buttons = buttons == null ? null : List.of(buttons);
     }
@@ -105,7 +102,7 @@ public class State {
 
         if (videoLinks != null) {
             Link link = videoLinks.getRandomVideoLink();
-            return new Answer(answer.text + link.getUrl(), answer.tts);
+            return new Answer(answer.text() + link.getUrl(), answer.tts(), answer.stubText(), answer.stubTts(), answer.isRepeatable());
         }
 
 
