@@ -5,7 +5,6 @@ import com.polis.api.model.MarusiaResponse;
 import com.polis.api.model.Session;
 import com.polis.api.model.request.UserSession;
 import com.polis.api.model.response.Response;
-import com.polis.api.storage.MarusiaAnswer;
 import com.polis.api.storage.RepositoryImpl;
 import com.polis.api.storage.State;
 import com.polis.config.Config;
