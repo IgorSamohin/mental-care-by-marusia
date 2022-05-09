@@ -22,10 +22,10 @@ public class AudioModel {
     }
 
     private PlayList[] getRandomPlaylist() {
-        return (PlayList[]) Stream.generate(() -> ThreadLocalRandom.current().nextInt(playList.size()))
+        return Stream.generate(() -> ThreadLocalRandom.current().nextInt(playList.size()))
                 .distinct()
                 .limit(PLAYLIST_SIZE)
                 .map(playList::get)
-                .toArray();
+                .toArray(PlayList[]::new);
     }
 }
