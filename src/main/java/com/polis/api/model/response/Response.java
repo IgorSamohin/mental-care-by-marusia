@@ -6,12 +6,10 @@ import com.polis.api.model.response.components.Command;
 import com.polis.api.model.response.components.ResponseCard;
 import com.polis.api.model.response.components.audio.AudioPlayer;
 import com.polis.api.storage.State;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -45,6 +43,6 @@ public class Response {
     }
 
     public Response(State state, boolean endSession) {
-        this(List.of(state.getText()), state.getTts(), state.getButtons(), endSession, null, state.getCommands(), state.getAudioPlayer());
+        this(List.of(state.getAnswer().text()), state.getAnswer().tts(), state.getButtons(), endSession, null, state.getCommands(), state.getAudioPlayer());
     }
 }
