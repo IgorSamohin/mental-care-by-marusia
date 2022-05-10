@@ -17,7 +17,8 @@ class ButtonsProvider {
      * Возвращает кнопки для состояния с заданным id или null, если кнопок нет.
      */
     public ResponseButton[] getButtons(int stateId) {
-        return map.get(stateId).buttons();
+        ButtonsModel buttons = map.get(stateId);
+        return buttons == null ? null : buttons.buttons();
     }
 
     //*********************************
@@ -26,12 +27,12 @@ class ButtonsProvider {
 
     @PostConstruct
     private void init() {
-        map.put(-4, new ButtonsModel(ZoneButtons.DEFAULT));
-        map.put(-3, new ButtonsModel(ZoneButtons.DEFAULT));
-        map.put(-2, new ButtonsModel(ZoneButtons.DEFAULT));
-        map.put(-1, new ButtonsModel(ZoneButtons.DEFAULT));
+        map.put(-4, new ButtonsModel(ZoneButtons.DEFAULT));     //начало, но не старт
+        map.put(-3, null);     //выход
+        map.put(-2, new ButtonsModel(ZoneButtons.DEFAULT));     //ошибка
+        map.put(-1, new ButtonsModel(ZoneButtons.START));       //старт (приветствие)
         map.put(1, new ButtonsModel(ZoneButtons.DEFAULT));      //совет
-        map.put(2, new ButtonsModel(ZoneButtons.COMMON_HELP));  //помощь
+        map.put(2, new ButtonsModel(ZoneButtons.MAIN_HELP));  //помощь
         map.put(3, new ButtonsModel(ZoneButtons.SEDATION));     //успокаивающее видео
         map.put(4, new ButtonsModel(ZoneButtons.SEDATION));     //успокаивающие звуки
         map.put(5, new ButtonsModel(ZoneButtons.SEDATION));     //успокаивающая музыка

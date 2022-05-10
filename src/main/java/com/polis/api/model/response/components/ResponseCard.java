@@ -2,7 +2,9 @@ package com.polis.api.model.response.components;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.polis.api.model.response.CardType;
+import com.polis.api.model.response.components.widgets.Link;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,12 +27,20 @@ public class ResponseCard {
     @JsonProperty("image_id")
     private Integer imageId = null;
 
+    @JsonUnwrapped
+    private Link link = null;
+
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private ImageId[] items = null;
 
     public ResponseCard(Integer imageId) {
         this.type = CardType.BIG_IMAGE;
         this.imageId = imageId;
+    }
+
+    public ResponseCard(Link link) {
+        this.type = CardType.LINK;
+        this.link = link;
     }
 
     public ResponseCard(int[] items) {

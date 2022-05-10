@@ -25,20 +25,20 @@ class MarusiaAnswerProvider {
 
     @PostConstruct
     private void init() {
-        map.put(-1, new Answer(MarusiaAnswer.START_ANSWER, false));
         map.put(-4, new Answer(MarusiaAnswer.HOME_ANSWER, false));
         map.put(-3, new Answer(MarusiaAnswer.EXIT_ANSWER, false));
         map.put(-2, new Answer(MarusiaAnswer.ERROR_ANSWER, false));
+        map.put(-1, new Answer(MarusiaAnswer.START_ANSWER, false));
         map.put(1, new Answer(MarusiaAnswer.ADVICE_FROM_PSYCHOLOGIST_ANSWER, true));
-        map.put(2, new Answer(MarusiaAnswer.HELP_ANSWER, true));
+        map.put(2, new Answer(MarusiaAnswer.HELP_ANSWER, false));
         map.put(3, new Answer(MarusiaAnswer.VIDEO_ANSWER, true));
         map.put(4, new Answer(MarusiaAnswer.SOOTHING_SOUND_ANSWER, true));
         map.put(5, new Answer(MarusiaAnswer.MUSIC_ANSWER, true));
         map.put(6, new Answer(MarusiaAnswer.BREATHING_EXERCISE_ANSWER, true));
         map.put(7, new Answer(MarusiaAnswer.YOGA_ANSWER, true));
         map.put(9, new Answer(MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER, true));
-        map.put(10, new Answer(MarusiaAnswer.HELP_DISTRACTION_ANSWER, true));
-        map.put(12, new Answer(MarusiaAnswer.HELP_SEDATION_ANSWER, true));
-        map.put(13, new Answer(MarusiaAnswer.HELP_SEDATION_AND_DISTRACTION_ANSWER, true));
+        map.put(10, new Answer(MarusiaAnswer.HELP_DISTRACTION_ANSWER, false));
+        map.put(12, new Answer(MarusiaAnswer.HELP_SEDATION_ANSWER, false));
+        map.put(13, new Answer(MarusiaAnswer.HELP_SEDATION_AND_DISTRACTION_ANSWER, false));
     }
 }

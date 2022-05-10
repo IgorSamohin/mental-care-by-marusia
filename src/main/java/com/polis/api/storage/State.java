@@ -7,6 +7,8 @@ import com.polis.api.storage.model.AdviceModel;
 import com.polis.api.storage.model.Answer;
 import com.polis.api.storage.model.AudioModel;
 import com.polis.api.storage.model.BreathExerciseModel;
+import com.polis.api.model.response.components.widgets.Link;
+import com.polis.api.storage.model.VideoLinksModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -32,6 +34,11 @@ public class State {
     private List<ResponseButton> buttons;
     @Getter
     private List<Command> commands;
+    private AudioPlayer audioPlayer;
+    @Getter
+    private VideoLinksModel videoLinks;
+    @Getter
+    private boolean isRepeatable;
     private AudioModel audio;
     private BreathExerciseModel breathExerciseModel;
     private AdviceModel adviceModel;
@@ -44,7 +51,8 @@ public class State {
             @Nullable Command[] commands,
             @Nullable AudioModel audio,
             @Nullable BreathExerciseModel breathExerciseModel,
-            @Nullable AdviceModel adviceModel
+            @Nullable AdviceModel adviceModel,
+            @Nullable VideoLinksModel videoLinksModel
     ) {
         this.id = id;
         this.answer = answer;
@@ -52,6 +60,7 @@ public class State {
         this.audio = audio;
         this.breathExerciseModel = breathExerciseModel;
         this.adviceModel = adviceModel;
+        this.videoLinks = videoLinksModel;
         this.possibleTransitions = possibleTransitions == null ? null : Arrays.asList(possibleTransitions);
         this.buttons = buttons == null ? null : List.of(buttons);
     }
@@ -91,6 +100,12 @@ public class State {
             return adviceModel.getRandomAdvice();
         }
 
+        if (videoLinks != null) {
+            Link link = videoLinks.getRandomVideoLink();
+            return new Answer(answer.text() + link.getUrl(), answer.tts(), answer.stubText(), answer.stubTts(), answer.isRepeatable());
+        }
+
+
         return answer;
     }
 
@@ -101,5 +116,13 @@ public class State {
         }
 
         return audio.getAudioPlayer();
+    }
+
+    public Link getLink() {
+        if (videoLinks != null) {
+            return videoLinks.getRandomVideoLink();
+        }
+
+        return null;
     }
 }

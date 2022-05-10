@@ -27,6 +27,8 @@ public class TransitionsProvider {
     private final Transition[] allTransitions = new Transition[]{
             new Transition(-4, MarusiaCommand.HOME),
             new Transition(-3, MarusiaCommand.EXIT),
+            new Transition(-1, MarusiaCommand.START),
+
             new Transition(1, MarusiaCommand.ADVICE),
             new Transition(2, MarusiaCommand.HELP),
             new Transition(3, MarusiaCommand.SEDATION_VIDEO),
@@ -41,26 +43,27 @@ public class TransitionsProvider {
             new Transition(13, MarusiaCommand.HELP_SEDATION_AND_DISTRACTION),
 
             new Transition(new int[]{3, 4, 5, 6}, MarusiaCommand.SEDATION),
-            new Transition(new int[]{3, 4, 5, 6}, MarusiaCommand.DISTRACTION)
+            new Transition(new int[]{3, 4, 5, 6}, MarusiaCommand.DISTRACTION),
+            new Transition(new int[]{1, 3, 4, 5, 6, 7, 9}, MarusiaCommand.MEGA_COMMAND)
     };
 
 
     @PostConstruct
     private void init() {
-        map.put(-4, allTransitions);
-        map.put(-3, new Transition[]{});
-        map.put(-2, allTransitions);
-        map.put(-1, allTransitions);
-        map.put(1, allTransitions);//совет
-        map.put(2, allTransitions);//помощь
-        map.put(3, allTransitions);//успокаивающее видео
-        map.put(4, allTransitions);//успокаивающие звуки
-        map.put(5, allTransitions);//успокаивающая музыка
-        map.put(6, allTransitions);//дыхательное упражнение
-        map.put(7, allTransitions);//йога
-        map.put(9, allTransitions);//счет чисел (выкл)
-        map.put(10, allTransitions);//помощь отвл
-        map.put(12, allTransitions);//помощь успокоение
-        map.put(13, allTransitions);//помощь отвл + успокоение
+        map.put(-4, allTransitions);        //начало, но не старт
+        map.put(-3, new Transition[]{});    //выход
+        map.put(-2, allTransitions);        //ошибка
+        map.put(-1, allTransitions);        //старт (приветствие)
+        map.put(1, allTransitions);         //совет
+        map.put(2, allTransitions);         //помощь
+        map.put(3, allTransitions);         //успокаивающее видео
+        map.put(4, allTransitions);         //успокаивающие звуки
+        map.put(5, allTransitions);         //успокаивающая музыка
+        map.put(6, allTransitions);         //дыхательное упражнение
+        map.put(7, allTransitions);         //йога
+        map.put(9, allTransitions);         //счет чисел (выкл)
+        map.put(10, allTransitions);        //помощь отвл
+        map.put(12, allTransitions);        //помощь успокоение
+        map.put(13, allTransitions);        //помощь отвл + успокоение
     }
 }
