@@ -37,7 +37,7 @@ public class RepositoryImpl {
 
         State currentState = getStates().get(currentStateId);
 
-        int nextStateId = currentState.getNextStateId(userInput);
+        int nextStateId = currentState.getRandomNextStateId(userInput);
 
         //не нашли команду, поэтому ошибка
         if (nextStateId == State.ERROR_STATE_ID) {
@@ -52,5 +52,9 @@ public class RepositoryImpl {
     private boolean isCountNumberGameState(int currentStateId) {
         return currentStateId == 9 || currentStateId == 14 || currentStateId == 15 ||
                 currentStateId == 16 || currentStateId == 17 || currentStateId == 18;
+    }
+
+    public State getStartState() {
+        return getState(State.START_STATE_ID);
     }
 }

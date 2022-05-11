@@ -46,6 +46,7 @@ public class Transition {
             return toIds[0];
         }
 
-        return toIds[ThreadLocalRandom.current().nextInt(toIds.length)];
+        int i = ThreadLocalRandom.current().nextInt(toIds.length);
+        return toIds[i];
     }
 }
