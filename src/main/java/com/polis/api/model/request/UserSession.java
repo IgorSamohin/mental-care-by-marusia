@@ -18,6 +18,10 @@ public class UserSession {
     @JsonProperty("end_game_number")
     public int endGameNumber = -1;
 
+    public UserSession(int prevStateId, int endGameNumber) {
+        this.prevStateId = prevStateId;
+        this.endGameNumber = endGameNumber;
+    }
 
     public UserSession(int prevStateId) {
         this.prevStateId = prevStateId;

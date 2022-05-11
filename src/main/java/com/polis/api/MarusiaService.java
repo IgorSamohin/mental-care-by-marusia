@@ -2,6 +2,8 @@ package com.polis.api;
 
 import com.polis.api.game.CountTaskService;
 import com.polis.api.game.GameAnswer;
+import com.polis.api.game.GuessNumberAnswer;
+import com.polis.api.game.GuessNumberService;
 import com.polis.api.model.MarusiaRequest;
 import com.polis.api.model.MarusiaResponse;
 import com.polis.api.model.Session;
@@ -23,6 +25,7 @@ public class MarusiaService {
     private final Config config;
 
     private final CountTaskService countTaskService;
+    private final GuessNumberService guessNumberService = new GuessNumberService();
 
     @Autowired
     public MarusiaService(RepositoryImpl repository, Config config, CountTaskService countTaskService) {
@@ -39,12 +42,20 @@ public class MarusiaService {
 
         int prevStateId = request.state.session.prevStateId;
 
+        State nextState = repository.getNextState(prevStateId, request.request.command);
+
         if (prevStateId == 9) {
-            return getResponseForGame(request, prevStateId);
+            return getResponseForCountGame(request, prevStateId);
+        }
+
+        if (prevStateId == 8) {
+            if (request.request.command.equalsIgnoreCase("Да") ||
+            request.state.session.endGameNumber != -1) {
+                return getResponseForGuessGame(request, prevStateId);
+            }
         }
 
         //приходит прошлый стейт и команда
-        State nextState = repository.getNextState(prevStateId, request.request.command);
 
         // todo парсить error state
 
@@ -53,7 +64,7 @@ public class MarusiaService {
         return createResponse(nextState, endSession, request.session);
     }
 
-    private MarusiaResponse getResponseForGame(MarusiaRequest request, int prevStateId) {
+    private MarusiaResponse getResponseForCountGame(MarusiaRequest request, int prevStateId) {
         int prevNumberGame = request.state.session.prevNumberGame;
         int endGameNumber = request.state.session.endGameNumber;
 
@@ -67,6 +78,29 @@ public class MarusiaService {
 
 
         return new MarusiaResponse(response, request.session, config.version, new UserSession(prevStateId, answer.prevNumber(), answer.endGameNUmber()));
+    }
+
+    private MarusiaResponse getResponseForGuessGame(MarusiaRequest request, int prevStateId) {
+
+        String command = request.request.command;
+
+        int endGameNumber = request.state.session.endGameNumber;
+
+        GuessNumberAnswer answer = guessNumberService.userGuessNumber(command, endGameNumber);
+
+        Response response = new Response(answer.text(), answer.tts(), false);
+
+        if (answer.endGame()) {
+            return new MarusiaResponse(response, request.session, config.version, new UserSession(
+                    -1,
+                    answer.endGameNUmber()
+            ));
+        }
+
+        return new MarusiaResponse(response, request.session, config.version, new UserSession(
+                prevStateId,
+                answer.endGameNUmber()
+        ));
     }
 
     //объединяем аргументы в ответ.
