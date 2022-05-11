@@ -1,6 +1,6 @@
 package com.polis.api.storage;
 
-import com.polis.api.storage.game.CountTaskService;
+import com.polis.api.game.CountTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -31,9 +31,6 @@ public class RepositoryImpl {
             return getStates().get(State.EXIT_STATE_ID);
         }
 
-        if (isCountNumberGameState(currentStateId)) {
-            return countTaskService.handleInput(userInput);
-        }
 
         State currentState = getStates().get(currentStateId);
 

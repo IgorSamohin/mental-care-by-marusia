@@ -1,5 +1,7 @@
 package com.polis.api;
 
+import com.polis.api.game.CountTaskService;
+import com.polis.api.game.GameAnswer;
 import com.polis.api.model.MarusiaRequest;
 import com.polis.api.model.MarusiaResponse;
 import com.polis.api.model.Session;
@@ -20,10 +22,13 @@ public class MarusiaService {
     private final RepositoryImpl repository;
     private final Config config;
 
+    private final CountTaskService countTaskService;
+
     @Autowired
-    public MarusiaService(RepositoryImpl repository, Config config) {
+    public MarusiaService(RepositoryImpl repository, Config config, CountTaskService countTaskService) {
         this.repository = repository;
         this.config = config;
+        this.countTaskService = countTaskService;
     }
 
     public MarusiaResponse handleRequest(MarusiaRequest request) {
@@ -34,6 +39,10 @@ public class MarusiaService {
 
         int prevStateId = request.state.session.prevStateId;
 
+        if (prevStateId == 9) {
+            return getResponseForGame(request, prevStateId);
+        }
+
         //приходит прошлый стейт и команда
         State nextState = repository.getNextState(prevStateId, request.request.command);
 
@@ -42,6 +51,22 @@ public class MarusiaService {
         boolean endSession = config.endSessionId == nextState.getId();
 
         return createResponse(nextState, endSession, request.session);
+    }
+
+    private MarusiaResponse getResponseForGame(MarusiaRequest request, int prevStateId) {
+        int prevNumberGame = request.state.session.prevNumberGame;
+        int endGameNumber = request.state.session.endGameNumber;
+
+        GameAnswer answer = countTaskService.handleInput(request.request.command, prevNumberGame, endGameNumber);
+
+        Response response = new Response(answer.text(), answer.tts(), answer.endSession());
+
+        if (answer.endGame()) {
+            return new MarusiaResponse(response, request.session, config.version, new UserSession(-1));
+        }
+
+
+        return new MarusiaResponse(response, request.session, config.version, new UserSession(prevStateId, answer.prevNumber(), answer.endGameNUmber()));
     }
 
     //объединяем аргументы в ответ.
