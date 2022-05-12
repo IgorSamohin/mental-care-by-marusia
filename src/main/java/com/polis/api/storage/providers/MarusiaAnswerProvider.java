@@ -36,7 +36,7 @@ class MarusiaAnswerProvider {
         map.put(5, new Answer(MarusiaAnswer.MUSIC_ANSWER, true));
         map.put(6, new Answer(MarusiaAnswer.BREATHING_EXERCISE_ANSWER, true));
         map.put(7, new Answer(MarusiaAnswer.YOGA_ANSWER, true));
-        map.put(9, new Answer(MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER, true));
+        map.put(9, new Answer(MarusiaAnswer.NUMBER_COUNT_TASK_ANSWER, false));
         map.put(10, new Answer(MarusiaAnswer.HELP_DISTRACTION_ANSWER, false));
         map.put(12, new Answer(MarusiaAnswer.HELP_SEDATION_ANSWER, false));
         map.put(13, new Answer(MarusiaAnswer.HELP_SEDATION_AND_DISTRACTION_ANSWER, false));
