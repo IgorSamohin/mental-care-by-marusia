@@ -15,6 +15,6 @@ public class YogaModel {
     public Answer getRandomYoga() {
         int index = ThreadLocalRandom.current().nextInt(yogas.size());
 
-        return yogas.get(14);
+        return yogas.get(index);
     }
 }
