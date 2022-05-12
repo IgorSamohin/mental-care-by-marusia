@@ -13,7 +13,7 @@ public class BreathExerciseModel {
     }
 
 
-    public Answer getRandomAdvice() {
+    public Answer getRandomExercise() {
         int index = ThreadLocalRandom.current().nextInt(exercises.size());
 
         return exercises.get(index);

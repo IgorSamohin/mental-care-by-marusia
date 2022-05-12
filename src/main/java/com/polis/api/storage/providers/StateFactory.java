@@ -6,11 +6,12 @@ import com.polis.api.storage.MarusiaCommand;
 import com.polis.api.storage.State;
 import com.polis.api.storage.Transition;
 import com.polis.api.storage.ZoneButtons;
-import com.polis.api.storage.model.VideoLinksModel;
 import com.polis.api.storage.model.AdviceModel;
 import com.polis.api.storage.model.Answer;
 import com.polis.api.storage.model.AudioModel;
 import com.polis.api.storage.model.BreathExerciseModel;
+import com.polis.api.storage.model.VideoLinksModel;
+import com.polis.api.storage.model.YogaModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,7 @@ public class StateFactory {
     private final VideoProvider videoProvider;
     private final BreathExerciseProvider breathExerciseProvider;
     private final AdviceProvider adviceProvider;
+    private final YogaProvider yogaProvider;
 
     @Autowired
     private StateFactory(
@@ -34,7 +36,8 @@ public class StateFactory {
             MarusiaAnswerProvider marusiaAnswerProvider,
             TransitionsProvider transitionsProvider,
             CommandsProvider commandsProvider,
-            VideoProvider videoProvider) {
+            VideoProvider videoProvider,
+            YogaProvider yogaProvider) {
         this.audioProvider = audioProvider;
         this.breathExerciseProvider = breathExerciseProvider;
         this.adviceProvider = adviceProvider;
@@ -43,6 +46,7 @@ public class StateFactory {
         this.transitionsProvider = transitionsProvider;
         this.commandsProvider = commandsProvider;
         this.videoProvider = videoProvider;
+        this.yogaProvider = yogaProvider;
     }
 
     public State getState(int stateId) {
@@ -54,6 +58,7 @@ public class StateFactory {
         BreathExerciseModel breathExerciseModel = breathExerciseProvider.getBreathExerciseModel(stateId);
         AdviceModel adviceModel = adviceProvider.getAdviceModel(stateId);
         VideoLinksModel videoLinks = videoProvider.getVideoLinks(stateId);
+        YogaModel yogaModel = yogaProvider.getYogaModel(stateId);
 
         if (marusiaAnswer.isRepeatable()) {
             Repeated repeated = addRepeat(stateId, buttons, transitions);
@@ -62,7 +67,7 @@ public class StateFactory {
         }
 
         return new State(stateId, marusiaAnswer, transitions, buttons, commands, audio, breathExerciseModel,
-                adviceModel, videoLinks);
+                adviceModel, videoLinks, yogaModel);
     }
 
     record Repeated(Transition[] transitions, ResponseButton[] buttons) {
