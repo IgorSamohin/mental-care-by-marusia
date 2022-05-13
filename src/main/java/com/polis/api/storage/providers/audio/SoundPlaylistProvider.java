@@ -20,6 +20,6 @@ public class SoundPlaylistProvider extends PlayListProvider {
         playLists.add(new PlayList("2000512010_456239092"));
         playLists.add(new PlayList("2000512010_456239093"));
         playLists.add(new PlayList("2000512010_456239094"));
-        playLists.add(new PlayList("2000512010_456239095"));
+        playLists.add(new PlayList("2000512010_456239096"));
     }
 }
