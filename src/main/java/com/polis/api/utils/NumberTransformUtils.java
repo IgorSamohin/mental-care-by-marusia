@@ -6,8 +6,10 @@ import java.text.ParseException;
 import java.util.Locale;
 
 public class NumberTransformUtils {
-    private static final RuleBasedNumberFormat numberFormat = new RuleBasedNumberFormat(Locale.forLanguageTag("ru"),
-            RuleBasedNumberFormat.SPELLOUT);
+    private static final RuleBasedNumberFormat numberFormat = new RuleBasedNumberFormat(
+            Locale.forLanguageTag("ru"),
+            RuleBasedNumberFormat.SPELLOUT
+    );
 
     public static int numberFromString(String number) {
         try {

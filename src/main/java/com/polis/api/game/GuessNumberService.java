@@ -6,14 +6,14 @@ import com.polis.api.utils.NumberTransformUtils;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GuessNumberService {
-    public GuessNumberAnswer userGuessNumber(String userInput, int endGameNumber) {
+    public GuessNumberAnswer userGuessNumber(String userInput, Integer endGameNumber) {
 
-        if (endGameNumber == -1) {
+        if (endGameNumber == null) {
             int numberToGuess = ThreadLocalRandom.current().nextInt(101);
 
             return new GuessNumberAnswer(
-                    "Давайте начнем! Я загадала число, попробуйте его отгадать.",
-                    "Давайте начнем! Я загадала число, попробуйте его отгадать.",
+                    "Давайте начнем! Я загадала число от нуля до ста. Попробуйте его отгадать.",
+                    "Давайте начнем! Я загадала число от нуля до ста. Попробуйте его отгадать.",
                     numberToGuess
             );
         }
@@ -46,10 +46,16 @@ public class GuessNumberService {
                         "Поздравляю, вы отгадали число . Вы можете попробовать сыграть еще или выбрать что-то другое",
                         "Поздравляю, вы отгадали число. Вы можете попробовать сыграть еще или выбрать что-то другое"
                 );
+            } else if (number > endGameNumber) {
+                return new GuessNumberAnswer(
+                        "Это не то число, которое было загадано, загаданное число меньше вашего",
+                        "Это не то число, которое было загадано, загаданное число меньше вашего",
+                        endGameNumber
+                );
             } else {
                 return new GuessNumberAnswer(
-                        "Это не то число, которое было загадано",
-                        "Это не то число, которое было загадано",
+                        "Это не то число, которое было загадано, загаданное число больше вашего",
+                        "Это не то число, которое было загадано, загаданное число больше вашего",
                         endGameNumber
                 );
             }
@@ -63,7 +69,7 @@ public class GuessNumberService {
                 }
             }
 
-            return new GuessNumberAnswer("Вам надо выбрать число", "Вам надо выбрать число");
+            return new GuessNumberAnswer("Вам надо выбрать число", "Вам надо выбрать число", endGameNumber);
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.polis.api;
 
+import com.polis.api.game.CountNumberAnswer;
 import com.polis.api.game.CountTaskService;
-import com.polis.api.game.GameAnswer;
 import com.polis.api.game.GuessNumberAnswer;
 import com.polis.api.game.GuessNumberService;
 import com.polis.api.model.MarusiaRequest;
@@ -50,7 +50,7 @@ public class MarusiaService {
 
         if (prevStateId == 8) {
             if (request.request.command.equalsIgnoreCase("Да") ||
-            request.state.session.endGameNumber != -1) {
+                    request.state.session.endGameNumber != null) {
                 return getResponseForGuessGame(request, prevStateId);
             }
         }
@@ -65,12 +65,12 @@ public class MarusiaService {
     }
 
     private MarusiaResponse getResponseForCountGame(MarusiaRequest request, int prevStateId) {
-        int prevNumberGame = request.state.session.prevNumberGame;
-        int endGameNumber = request.state.session.endGameNumber;
+        Integer prevNumberGame = request.state.session.prevNumberGame;
+        Integer endGameNumber = request.state.session.endGameNumber;
 
-        GameAnswer answer = countTaskService.handleInput(request.request.command, prevNumberGame, endGameNumber);
+        CountNumberAnswer answer = countTaskService.handleInput(request.request.command, prevNumberGame, endGameNumber);
 
-        Response response = new Response(answer.text(), answer.tts(), answer.endSession());
+        Response response = new Response(answer.text(), answer.tts(), false);
 
         if (answer.endGame()) {
             return new MarusiaResponse(response, request.session, config.version, new UserSession(-1));
@@ -84,7 +84,7 @@ public class MarusiaService {
 
         String command = request.request.command;
 
-        int endGameNumber = request.state.session.endGameNumber;
+        Integer endGameNumber = request.state.session.endGameNumber;
 
         GuessNumberAnswer answer = guessNumberService.userGuessNumber(command, endGameNumber);
 
@@ -93,13 +93,13 @@ public class MarusiaService {
         if (answer.endGame()) {
             return new MarusiaResponse(response, request.session, config.version, new UserSession(
                     -1,
-                    answer.endGameNUmber()
+                    answer.endGameNumber()
             ));
         }
 
         return new MarusiaResponse(response, request.session, config.version, new UserSession(
                 prevStateId,
-                answer.endGameNUmber()
+                answer.endGameNumber()
         ));
     }
 
