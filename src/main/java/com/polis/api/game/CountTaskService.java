@@ -6,14 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.text.ParseException;
+
 @Component
 @RequiredArgsConstructor
 public class CountTaskService {
     public CountNumberAnswer handleInput(String userInput, Integer prevNumber, Integer endGameNumber) {
         try {
-            int numberFromString = NumberTransformUtils.numberFromString(userInput);
-
-            int number = numberFromString == -1 ? Integer.parseInt(userInput) : numberFromString;
+            int number = NumberTransformUtils.numberFromString(userInput);
 
             if (endGameNumber == null) {
                 return new CountNumberAnswer(
@@ -67,7 +67,7 @@ public class CountTaskService {
 
             return getAnswerWithNextNumber(prevNumber, endGameNumber, number);
 
-        } catch (NumberFormatException e) {
+        } catch (ParseException e) {
 
             for (String command : MarusiaCommand.DISTRACTION_STOP.commands) {
                 if (command.equalsIgnoreCase(userInput) || userInput.equals("on_interrupt")) {

@@ -11,12 +11,8 @@ public class NumberTransformUtils {
             RuleBasedNumberFormat.SPELLOUT
     );
 
-    public static int numberFromString(String number) {
-        try {
-            return numberFormat.parse(number).intValue();
-        } catch (ParseException e) {
-            return -1;
-        }
+    public static int numberFromString(String number) throws ParseException {
+        return numberFormat.parse(number).intValue();
     }
 
     public static String stringFromNumber(int number) {

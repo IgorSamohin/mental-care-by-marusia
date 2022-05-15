@@ -3,6 +3,7 @@ package com.polis.api.game;
 import com.polis.api.storage.MarusiaCommand;
 import com.polis.api.utils.NumberTransformUtils;
 
+import java.text.ParseException;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GuessNumberService {
@@ -19,9 +20,7 @@ public class GuessNumberService {
         }
 
         try {
-            int numberFromString = NumberTransformUtils.numberFromString(userInput);
-
-            int number = numberFromString == -1 ? Integer.parseInt(userInput) : numberFromString;
+            int number = NumberTransformUtils.numberFromString(userInput);
 
             if (number > 100) {
                 return new GuessNumberAnswer(
@@ -61,7 +60,7 @@ public class GuessNumberService {
             }
 
 
-        } catch (NumberFormatException e) {
+        } catch (ParseException e) {
 
             for (String command : MarusiaCommand.DISTRACTION_STOP.commands) {
                 if (command.equalsIgnoreCase(userInput) || userInput.equals("on_interrupt")) {
