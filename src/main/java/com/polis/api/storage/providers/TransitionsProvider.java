@@ -65,10 +65,14 @@ public class TransitionsProvider {
                 new Transition(-4, MarusiaCommand.GAME_CANCEL),
                 new Transition(14, MarusiaCommand.GAME_START)
         });
-        map.put(9, allTransitions);         //счет чисел (выкл)
+        map.put(9, new Transition[]{
+                new Transition(-4, MarusiaCommand.STOP_GAME)
+        });         //счет чисел
         map.put(10, allTransitions);        //помощь отвл
         map.put(12, allTransitions);        //помощь успокоение
         map.put(13, allTransitions);        //помощь отвл + успокоение
-        map.put(14, allTransitions);
+        map.put(14, new Transition[]{
+                new Transition(-4, MarusiaCommand.STOP_GAME)
+        }); //гадание чисел
     }
 }

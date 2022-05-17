@@ -39,9 +39,10 @@ class ButtonsProvider {
         map.put(6, new ButtonsModel(ZoneButtons.SEDATION));     //дыхательное упражнение
         map.put(7, new ButtonsModel(ZoneButtons.DISTRACTION));  //йога
         map.put(8, new ButtonsModel(ZoneButtons.GUESS_GAME));  //угадывание чисел
-        map.put(9, new ButtonsModel(ZoneButtons.DISTRACTION));  //счет чисел
+        map.put(9, new ButtonsModel(ZoneButtons.GAME_STOP));  //счет чисел
         map.put(10, new ButtonsModel(ZoneButtons.DISTRACTION)); //помощь отвл
         map.put(12, new ButtonsModel(ZoneButtons.SEDATION));    //помощь успокоение
         map.put(13, new ButtonsModel(ZoneButtons.COMMON_HELP)); //помощь отвл + успокоение
+        map.put(14, new ButtonsModel(ZoneButtons.GAME_STOP)); //помощь отвл + успокоение
     }
 }

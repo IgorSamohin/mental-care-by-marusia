@@ -11,13 +11,12 @@ import java.text.ParseException;
 @Component
 @RequiredArgsConstructor
 public class CountTaskService {
-    //FIXME Если она предложила, то не отказаться, надо сделать как в угадывание, да и нет
-    public CountNumberAnswer handleInput(String userInput, Integer prevNumber, Integer endGameNumber) {
+    public GameNumberAnswer handleInput(String userInput, Integer prevNumber, Integer endGameNumber) {
         try {
             int number = NumberTransformUtils.numberFromString(userInput);
 
             if (endGameNumber == null) {
-                return new CountNumberAnswer(
+                return new GameNumberAnswer(
                         "Давайте я начну! Один",
                         "Давайте я начну! Один",
                         false,
@@ -27,7 +26,7 @@ public class CountTaskService {
             }
 
             if (number <= 1) {
-                return new CountNumberAnswer(
+                return new GameNumberAnswer(
                         "Число должно быть больше 1",
                         "Число должно быть больше одного",
                         false,
@@ -37,7 +36,7 @@ public class CountTaskService {
             }
 
             if (number > 100) {
-                return new CountNumberAnswer(
+                return new GameNumberAnswer(
                         "Число должно быть меньше или равняться 100",
                         "Число должно быть меньше или равняться ста",
                         false,
@@ -47,7 +46,7 @@ public class CountTaskService {
             }
 
             if (Math.abs(prevNumber - number) > 1 || number <= prevNumber) {
-                return new CountNumberAnswer(
+                return new GameNumberAnswer(
                         "Следующее число должно быть на один больше моего",
                         "Следующее число должно быть на один больше моего",
                         false,
@@ -57,7 +56,7 @@ public class CountTaskService {
             }
 
             if (number == endGameNumber) {
-                return new CountNumberAnswer(
+                return new GameNumberAnswer(
                         "Вы назвали конечное число. Отличная работа! Можем сыграть снова или вы можете выбрать что-то другое",
                         "Вы назвали конечное число. Отличная работа! Можем сыграть снова или вы можете выбрать что-то другое",
                         true,
@@ -70,24 +69,24 @@ public class CountTaskService {
 
         } catch (ParseException e) {
 
-            for (String command : MarusiaCommand.DISTRACTION_STOP.commands) {
-                if (command.equalsIgnoreCase(userInput) || userInput.equals("on_interrupt")) {
-                    return new CountNumberAnswer("Возвращайтесь снова, чтобы поиграть", "Возвращайтесь снова, чтобы поиграть", true, prevNumber, endGameNumber);
+            for (String command : MarusiaCommand.STOP_GAME.commands) {
+                if (command.equalsIgnoreCase(userInput)) {
+                    return new GameNumberAnswer("Возвращайтесь снова, чтобы поиграть", "Возвращайтесь снова, чтобы поиграть", true, prevNumber, endGameNumber);
                 }
             }
 
-            return new CountNumberAnswer("Вы должны выбрать число", "Вы должны выбрать число", false, prevNumber, endGameNumber);
+            return new GameNumberAnswer("Вы должны выбрать число", "Вы должны выбрать число", false, prevNumber, endGameNumber);
         }
     }
 
-    private CountNumberAnswer getAnswerWithNextNumber(int prevNumber, int endGameNumber, int number) {
+    private GameNumberAnswer getAnswerWithNextNumber(int prevNumber, int endGameNumber, int number) {
         int nextNumber = number + 1;
 
         String strNextNumber = NumberTransformUtils.stringFromNumber(nextNumber);
         strNextNumber = StringUtils.capitalize(strNextNumber);
 
         if (nextNumber == endGameNumber) {
-            return new CountNumberAnswer(
+            return new GameNumberAnswer(
                     strNextNumber + ", Мы досчитали до конца. Отличная работа! Можем сыграть снова или вы можете выбрать что-то другое",
                     strNextNumber + ", Мы досчитали до конца. Отличная работа! Можем сыграть снова или вы можете выбрать что-то другое",
                     true,
@@ -96,7 +95,7 @@ public class CountTaskService {
             );
         }
 
-        return new CountNumberAnswer(
+        return new GameNumberAnswer(
                 strNextNumber + "! Ваша очередь",
                 strNextNumber + "! Ваша очередь",
                 false,
