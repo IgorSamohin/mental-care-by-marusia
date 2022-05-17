@@ -9,6 +9,7 @@ import com.polis.api.storage.model.Answer;
 import com.polis.api.storage.model.AudioModel;
 import com.polis.api.storage.model.BreathExerciseModel;
 import com.polis.api.storage.model.VideoLinksModel;
+import com.polis.api.storage.model.YogaModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
@@ -46,6 +47,7 @@ public class State {
     private AudioModel audio;
     private BreathExerciseModel breathExerciseModel;
     private AdviceModel adviceModel;
+    private YogaModel yogaModel;
 
     public State(
             int id,
@@ -56,7 +58,8 @@ public class State {
             @Nullable AudioModel audio,
             @Nullable BreathExerciseModel breathExerciseModel,
             @Nullable AdviceModel adviceModel,
-            @Nullable VideoLinksModel videoLinksModel
+            @Nullable VideoLinksModel videoLinksModel,
+            @Nullable YogaModel yogaModel
     ) {
         this.id = id;
         this.answer = answer;
@@ -65,6 +68,7 @@ public class State {
         this.breathExerciseModel = breathExerciseModel;
         this.adviceModel = adviceModel;
         this.videoLinks = videoLinksModel;
+        this.yogaModel = yogaModel;
         this.possibleTransitions = possibleTransitions == null ? null : Arrays.asList(possibleTransitions);
         this.buttons = buttons == null ? null : List.of(buttons);
     }
@@ -104,7 +108,7 @@ public class State {
 
     public Answer getAnswer() {
         if (breathExerciseModel != null) {
-            return breathExerciseModel.getRandomAdvice();
+            return breathExerciseModel.getRandomExercise();
         }
 
         if (adviceModel != null) {
@@ -116,6 +120,9 @@ public class State {
             return new Answer(answer.text() + link.getUrl(), answer.tts(), answer.stubText(), answer.stubTts(), answer.isRepeatable());
         }
 
+        if (yogaModel != null) {
+            return yogaModel.getRandomYoga();
+        }
 
         return answer;
     }
