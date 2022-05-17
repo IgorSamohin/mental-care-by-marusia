@@ -41,5 +41,8 @@ class MarusiaAnswerProvider {
         map.put(10, new Answer(MarusiaAnswer.HELP_DISTRACTION_ANSWER, false));
         map.put(12, new Answer(MarusiaAnswer.HELP_SEDATION_ANSWER, false));
         map.put(13, new Answer(MarusiaAnswer.HELP_SEDATION_AND_DISTRACTION_ANSWER, false));
+        map.put(14, new Answer(
+                "Давайте начнем! Я загадала число от 0 до 100. Попробуйте его отгадать.",
+                "Давайте начнем! Я загадала число от нуля до ста. Попробуйте его отгадать."));
     }
 }

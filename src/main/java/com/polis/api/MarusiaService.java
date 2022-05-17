@@ -48,11 +48,8 @@ public class MarusiaService {
             return getResponseForCountGame(request, prevStateId);
         }
 
-        if (prevStateId == 8) {
-            if (request.request.command.equalsIgnoreCase("Да") ||
-                    request.state.session.endGameNumber != null) {
-                return getResponseForGuessGame(request, prevStateId);
-            }
+        if (prevStateId == 14) {
+            return getResponseForGuessGame(request, prevStateId);
         }
 
         //приходит прошлый стейт и команда

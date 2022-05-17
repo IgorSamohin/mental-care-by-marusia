@@ -7,22 +7,19 @@ import java.text.ParseException;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GuessNumberService {
+    private static final int MAX_NUMBER_TO_CHOOSE = 100;
+    private static final int MIN_NUMBER_TO_CHOOSE = 0;
+
     public GuessNumberAnswer userGuessNumber(String userInput, Integer endGameNumber) {
 
         if (endGameNumber == null) {
-            int numberToGuess = ThreadLocalRandom.current().nextInt(101);
-
-            return new GuessNumberAnswer(
-                    "Давайте начнем! Я загадала число от нуля до ста. Попробуйте его отгадать.",
-                    "Давайте начнем! Я загадала число от нуля до ста. Попробуйте его отгадать.",
-                    numberToGuess
-            );
+            endGameNumber = ThreadLocalRandom.current().nextInt(MAX_NUMBER_TO_CHOOSE + 1);
         }
 
         try {
             int number = NumberTransformUtils.numberFromString(userInput);
 
-            if (number > 100) {
+            if (number > MAX_NUMBER_TO_CHOOSE) {
                 return new GuessNumberAnswer(
                         "Загаданное число меньше 100. Выберите другое число",
                         "Загаданное число меньше ста. Выберите другое число",
@@ -31,10 +28,10 @@ public class GuessNumberService {
                 );
             }
 
-            if (number < 0) {
+            if (number <= MIN_NUMBER_TO_CHOOSE) {
                 return new GuessNumberAnswer(
-                        "Загаданное число больше 0. Выберите другое число",
-                        "Загаданное число больше нуля. Выберите другое число",
+                        "Загаданное число больше больше, либо равняется нулю. Выберите другое число",
+                        "Загаданное число больше больше, либо равняется нулю. Выберите другое число",
                         false,
                         endGameNumber
                 );

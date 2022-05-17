@@ -62,12 +62,13 @@ public class TransitionsProvider {
         map.put(6, allTransitions);         //дыхательное упражнение
         map.put(7, allTransitions);         //йога
         map.put(8, new Transition[]{
-                new Transition(-4, MarusiaCommand.GAME_CANCEL)
+                new Transition(-4, MarusiaCommand.GAME_CANCEL),
+                new Transition(14, MarusiaCommand.GAME_START)
         });
         map.put(9, allTransitions);         //счет чисел (выкл)
         map.put(10, allTransitions);        //помощь отвл
         map.put(12, allTransitions);        //помощь успокоение
         map.put(13, allTransitions);        //помощь отвл + успокоение
-
+        map.put(14, allTransitions);
     }
 }

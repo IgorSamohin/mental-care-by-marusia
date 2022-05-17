@@ -11,6 +11,7 @@ import java.text.ParseException;
 @Component
 @RequiredArgsConstructor
 public class CountTaskService {
+    //FIXME Если она предложила, то не отказаться, надо сделать как в угадывание, да и нет
     public CountNumberAnswer handleInput(String userInput, Integer prevNumber, Integer endGameNumber) {
         try {
             int number = NumberTransformUtils.numberFromString(userInput);
