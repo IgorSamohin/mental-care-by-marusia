@@ -23,6 +23,10 @@ public class State {
     public static final int START_STATE_ID = -1;
     public static final int ERROR_STATE_ID = -2;
     public static final int EXIT_STATE_ID = -3;
+    public static final int HOME_STATE_ID = -4;
+
+    public static final int COUNT_GAME_STATE_ID = 9;
+    public static final int GUESS_GAME_STATE_ID = 14;
     public static final int MENU_ID = 2;
 
     @Getter
@@ -32,7 +36,7 @@ public class State {
     @Getter
     private List<Transition> possibleTransitions;
     @Getter
-    private List<ResponseButton> buttons;
+    protected List<ResponseButton> buttons;
     @Getter
     private List<Command> commands;
     private AudioPlayer audioPlayer;
@@ -67,6 +71,13 @@ public class State {
         this.yogaModel = yogaModel;
         this.possibleTransitions = possibleTransitions == null ? null : Arrays.asList(possibleTransitions);
         this.buttons = buttons == null ? null : List.of(buttons);
+    }
+
+    protected State(int id, Answer answer, List<Transition> possibleTransitions, List<ResponseButton> buttons) {
+        this.id = id;
+        this.answer = answer;
+        this.possibleTransitions = possibleTransitions;
+        this.buttons = buttons;
     }
 
     private int getNextStateId(String userInput, boolean isRandom) {

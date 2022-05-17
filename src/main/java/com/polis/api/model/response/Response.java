@@ -59,4 +59,10 @@ public class Response {
             this.card = new ResponseCard(link);
         }
     }
+
+    public Response(String text, String tts, boolean endSession) {
+        this.text = List.of(text);
+        this.tts = tts;
+        this.endSession = endSession;
+    }
 }

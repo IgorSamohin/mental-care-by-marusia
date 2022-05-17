@@ -69,6 +69,12 @@
             <artifactId>commons-configuration</artifactId>
             <version>1.10</version>
         </dependency>
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>71.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

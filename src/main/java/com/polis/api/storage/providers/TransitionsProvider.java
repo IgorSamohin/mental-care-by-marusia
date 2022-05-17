@@ -36,7 +36,7 @@ public class TransitionsProvider {
             new Transition(5, MarusiaCommand.SEDATION_MUSIC),
             new Transition(6, MarusiaCommand.BREATH_EXERCISE),
             new Transition(7, MarusiaCommand.DISTRACTION_YOGA),
-//                new Transition(8, MarusiaCommand.DISTRACTION_NUMBER_DIVINATION),
+            new Transition(8, MarusiaCommand.DISTRACTION_NUMBER_DIVINATION),
             new Transition(9, MarusiaCommand.DISTRACTION_COUNT),
             new Transition(10, MarusiaCommand.HELP_DISTRACTION),
             new Transition(12, MarusiaCommand.HELP_SEDATION),
@@ -61,9 +61,18 @@ public class TransitionsProvider {
         map.put(5, allTransitions);         //успокаивающая музыка
         map.put(6, allTransitions);         //дыхательное упражнение
         map.put(7, allTransitions);         //йога
-        map.put(9, allTransitions);         //счет чисел (выкл)
+        map.put(8, new Transition[]{
+                new Transition(-4, MarusiaCommand.GAME_CANCEL),
+                new Transition(14, MarusiaCommand.GAME_START)
+        });
+        map.put(9, new Transition[]{
+                new Transition(-4, MarusiaCommand.STOP_GAME)
+        });         //счет чисел
         map.put(10, allTransitions);        //помощь отвл
         map.put(12, allTransitions);        //помощь успокоение
         map.put(13, allTransitions);        //помощь отвл + успокоение
+        map.put(14, new Transition[]{
+                new Transition(-4, MarusiaCommand.STOP_GAME)
+        }); //гадание чисел
     }
 }
